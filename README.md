@@ -1,10 +1,10 @@
-# Skill 1 — MadGraph-Based Boosted Z->bb Production and LHE Exploration
+# Part 1 — MadGraph-Based Boosted Z->bb Production and LHE Exploration
 
-This directory contains the standalone package for **Skill 1 (Part 1)** of the experimental High-Energy Physics (HEP) Monte Carlo training series.
+This directory contains the standalone package for **Part 1** of the experimental High-Energy Physics (HEP) Monte Carlo training series.
 
 ## Overview & Pedagogical Purpose
 
-Skill 1 guides an experimental-HEP student from process definition to matrix element event generation and LHE kinematic exploration:
+Part 1 guides an experimental-HEP student from process definition to matrix element event generation and LHE kinematic exploration:
 ```text
 Process Definition -> MadGraph Cards -> Parton-Level LHE File -> Event Record Inspection -> Generator Kinematics
 ```
@@ -16,7 +16,7 @@ p p > z j, z > b b~
 
 ## Directory Organization
 
-All Skill 1 deliverables are strictly contained in this `Part1_MadGraph_Zbb/` folder:
+All Part 1 deliverables are strictly contained in this `Part1_MadGraph_Zbb/` folder:
 
 ```text
 Part1_MadGraph_Zbb/
@@ -34,7 +34,7 @@ Part1_MadGraph_Zbb/
 
 1. **`Part1_01_process_to_lhe.ipynb`**:
    - Environment verification (`gfortran --version`, `python3 --version`).
-   - Download & installation of MadGraph5_aMC@NLO `v3.5.3`.
+   - Download & installation of MadGraph5_aMC@NLO `v3.5.16`.
    - Physics foundations (Standard Model, $Z \to b\bar{b}$ branching fraction, boosted topology).
    - Process card & run card configuration (`cards/zbbj_proc_card.dat`, `cards/zbbj_run_card.dat`).
    - 10-event test generation with log inspection.
@@ -50,7 +50,7 @@ Part1_MadGraph_Zbb/
 
 ## Technical Parameters
 
-- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.3`.
+- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.16`.
 - **Process Syntax**: `import model sm`, `generate p p > z j, z > b b~`, `output Zbbj_LO`, `launch Zbbj_LO`.
 - **Collider Center-of-Mass Energy**: $\sqrt{s} = 13\text{ TeV}$ (`ebeam1 = 6500 GeV`, `ebeam2 = 6500 GeV`).
 - **Boost Cut**: `ptj = 150.0 GeV` / `ptZmin = 150.0 GeV` in `cards/zbbj_run_card.dat`.
