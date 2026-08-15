@@ -1,0 +1,4 @@
+import model sm
+generate p p > z j, z > b b~
+output Zbbj_LO
+launch Zbbj_LO
