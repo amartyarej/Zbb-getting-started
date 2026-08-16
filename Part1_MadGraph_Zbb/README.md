@@ -1,6 +1,6 @@
 # Part 1 — MadGraph-Based Boosted Z->bb Production and LHE Exploration
 
-This directory contains the standalone package for **Part 1 (Skill 1)** of the experimental High-Energy Physics (HEP) Monte Carlo training series.
+This directory contains the standalone package for **Part 1** of the experimental High-Energy Physics (HEP) Monte Carlo training series.
 
 ## Overview & Pedagogical Purpose
 

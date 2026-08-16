@@ -1,4 +1,4 @@
-# Core dependencies for Skill 1 (Part1_MadGraph_Zbb) — LHE Exploration & Generator Kinematics
+# Core dependencies for Part 1 (Part1_MadGraph_Zbb) — LHE Exploration & Generator Kinematics
 numpy>=1.22.0
 matplotlib>=3.5.0
 mplhep>=0.3.26
