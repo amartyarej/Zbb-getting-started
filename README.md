@@ -6,7 +6,7 @@ Welcome to the **Experimental High-Energy Physics (HEP) Training Series**. This 
 
 The training program covers the physics simulation and analysis workflow:
 
-$$\underbrace{\text{Process Cards} \rightarrow \text{Matrix Element (LHE)}}_{\mathbf{\text{Part 1: MadGraph (Skill 1)}}} \rightarrow \underbrace{\text{Uproot/Awkward} \rightarrow \text{Taggers \& Normalization}}_{\mathbf{\text{Part 2: Detector-Level Analysis (Skill 3)}}} \rightarrow \underbrace{\text{FastJet Anti-}k_t \rightarrow \text{Subjet Clustering}}_{\mathbf{\text{Part 3: Jet Clustering \& Subjets (Skill 4)}}}$$
+$$\underbrace{\text{Process Cards} \rightarrow \text{Matrix Element (LHE)}}_{\mathbf{\text{Part 1: MadGraph (Skill 1)}}} \rightarrow \underbrace{\text{Uproot/Awkward} \rightarrow \text{Taggers and Normalization}}_{\mathbf{\text{Part 2: Detector-Level Analysis (Skill 3)}}} \rightarrow \underbrace{\text{FastJet Anti-}k_t \rightarrow \text{Subjet Clustering}}_{\mathbf{\text{Part 3: Jet Clustering and Subjets (Skill 4)}}}$$
 
 ---
 
@@ -14,7 +14,7 @@ $$\underbrace{\text{Process Cards} \rightarrow \text{Matrix Element (LHE)}}_{\ma
 
 The repository is organized into three self-contained parts:
 
-### 1. [Part 1: MadGraph-Based Boosted Z->bb Production & LHE Exploration](file:///home/a/temp/intern-tut/Part1_MadGraph_Zbb) *(Skill 1)*
+### 1. [Part 1: MadGraph-Based Boosted Z->bb Production & LHE Exploration](./Part1_MadGraph_Zbb) *(Skill 1)*
 - **Directory**: `Part1_MadGraph_Zbb/`
 - **Core Focus**: Hard-scattering matrix element calculation ($pp \to Z+j, Z \to b\bar{b}$), run card boost cuts (`ptj = 150.0 GeV`, `ptZmin = 150.0 GeV`), non-interactive MadGraph batch execution, LHE XML event parsing (`pylhe`), four-vector kinematics, and generator-level histograms with `mplhep`.
 - **Deliverables**:
@@ -46,4 +46,4 @@ All notebooks are designed to run in **Google Colab** or standard Linux/macOS Py
 - **Compilers & Runtimes**: Python 3.10+, C++/Fortran (`gfortran`).
 - **Core Python Ecosystem**: `numpy`, `matplotlib`, `mplhep`, `pylhe`, `uproot`, `awkward`, `fastjet`.
 
-For part-specific instructions and card files, see the `README.md` in each subfolder (e.g., [Part1_MadGraph_Zbb/README.md](file:///home/a/temp/intern-tut/Part1_MadGraph_Zbb/README.md)).
+For part-specific instructions and card files, see the `README.md` in each subfolder (e.g., [Part1_MadGraph_Zbb/README.md](./Part1_MadGraph_Zbb/README.md)).
