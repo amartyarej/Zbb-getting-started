@@ -1,57 +1,49 @@
-# Part 1 — MadGraph-Based Boosted Z->bb Production and LHE Exploration
+# Experimental High-Energy Physics (HEP) Monte Carlo & Analysis Training Series
 
-This directory contains the standalone package for **Part 1** of the experimental High-Energy Physics (HEP) Monte Carlo training series.
+Welcome to the **Experimental High-Energy Physics (HEP) Training Series**. This repository contains a modular sequence of Google Colab-compatible Jupyter notebooks, configuration cards, datasets, and analysis scripts designed to guide students through matrix-element generation, detector-level analysis, jet clustering, and boosted physics observables.
 
-## Overview & Pedagogical Purpose
+## Curriculum & Simulation Pipeline
 
-Part 1 guides an experimental-HEP student from process definition to matrix element event generation and LHE kinematic exploration:
-```text
-Process Definition -> MadGraph Cards -> Parton-Level LHE File -> Event Record Inspection -> Generator Kinematics
-```
+The training program covers the physics simulation and analysis workflow:
 
-Students study proton-proton production of a $Z$ boson recoiling against a hard matrix-element jet, with the $Z$ forced to decay to a bottom-quark pair:
-```text
-p p > z j, z > b b~
-```
+$$\underbrace{\text{Process Cards} \rightarrow \text{Matrix Element (LHE)}}_{\mathbf{\text{Part 1: MadGraph (Skill 1)}}} \rightarrow \underbrace{\text{Uproot/Awkward} \rightarrow \text{Taggers \& Normalization}}_{\mathbf{\text{Part 2: Detector-Level Analysis (Skill 3)}}} \rightarrow \underbrace{\text{FastJet Anti-}k_t \rightarrow \text{Subjet Clustering}}_{\mathbf{\text{Part 3: Jet Clustering \& Subjets (Skill 4)}}}$$
 
-## Directory Organization
+---
 
-All Part 1 deliverables are strictly contained in this `Part1_MadGraph_Zbb/` folder:
+## Program Structure & Modular Parts
 
-```text
-Part1_MadGraph_Zbb/
-├── Part1_01_process_to_lhe.ipynb                  # Notebook 01 (MadGraph Process Setup & LHE Generation)
-├── Part1_02_read_lhe_and_plot_kinematics.ipynb   # Notebook 02 (Read LHE & Plot Kinematics)
-├── requirements.txt
-├── README.md
-├── checksums.sha256
-└── cards/
-    ├── zbbj_proc_card.dat                         # Process Card
-    └── zbbj_run_card.dat                          # Run Card
-```
+The repository is organized into three self-contained parts:
 
-## Notebook Sequence
+### 1. [Part 1: MadGraph-Based Boosted Z->bb Production & LHE Exploration](file:///home/a/temp/intern-tut/Part1_MadGraph_Zbb) *(Skill 1)*
+- **Directory**: `Part1_MadGraph_Zbb/`
+- **Core Focus**: Hard-scattering matrix element calculation ($pp \to Z+j, Z \to b\bar{b}$), run card boost cuts (`ptj = 150.0 GeV`, `ptZmin = 150.0 GeV`), non-interactive MadGraph batch execution, LHE XML event parsing (`pylhe`), four-vector kinematics, and generator-level histograms with `mplhep`.
+- **Deliverables**:
+  - `Part1_01_process_to_lhe.ipynb`: MadGraph setup, cards configuration, test run (10 events), production run (1000 events), and LHE XML inspection.
+  - `Part1_02_read_lhe_and_plot_kinematics.ipynb`: LHE parsing, 4-vector reconstruction, 1D/2D histograms with `mplhep`, and analytical boost guide comparison ($\Delta R_{b\bar{b}} \approx \frac{2m_Z}{p_T^Z}$).
 
-1. **`Part1_01_process_to_lhe.ipynb`**:
-   - Environment verification (`gfortran --version`, `python3 --version`).
-   - Download & installation of MadGraph5_aMC@NLO `v3.5.16`.
-   - Physics foundations (Standard Model, $Z \to b\bar{b}$ branching fraction, boosted topology).
-   - Process card & run card configuration (`cards/zbbj_proc_card.dat`, `cards/zbbj_run_card.dat`).
-   - 10-event test generation with log inspection.
-   - 1000-event main production generation (`Zbbj_LO/Events/run_01/unweighted_events.lhe.gz`).
-   - LHE XML format inspection (`<event>` block breakdown).
+### 2. Part 2: Detector-Level ROOT Analysis, EDA, Taggers, Sculpting, & MC Normalization *(Skill 3)*
+- **Directory**: `Part2_Detector_Analysis/` *(In development)*
+- **Core Focus**: Exploratory data analysis of detector-level ROOT TTrees using Uproot and Awkward Array.
+- **Topics**:
+  - Distinguishing generator-truth partons from reconstructed detector objects.
+  - Inspecting reconstructed jet kinematics ($p_T, \eta, \phi, m$), pileup proxy ($\mu$), and Monte Carlo event weights.
+  - Evaluating W-vs-QCD and multi-class machine learning tagger scores (`bb`, `qq`, QCD).
+  - Understanding tagger mass sculpting and cross-section luminosity normalization.
 
-2. **`Part1_02_read_lhe_and_plot_kinematics.ipynb`**:
-   - Strict check for Notebook 01 output (`Zbbj_LO/Events/run_01/unweighted_events.lhe.gz`).
-   - Event loop parsing with Scikit-HEP `pylhe`.
-   - Four-vector reconstruction of $Z = b + \bar{b}$ and kinematic calculations ($p_T^Z, p_T^b, \eta, \phi, \Delta R, m_{b\bar{b}}$).
-   - 1D histogram suite formatted with `mplhep` and weighted by MC weights.
-   - 2D correlation histogram ($\Delta R_{b\bar{b}}$ vs. $p_T^Z$) with theoretical boost guide overlay ($\Delta R \approx \frac{2m_Z}{p_T^Z}$).
+### 3. Part 3: Jet Clustering, Radius Dependence, & Subjet Exploration *(Skill 4)*
+- **Directory**: `Part3_Jet_Clustering_FastJet/` *(In development)*
+- **Core Focus**: Hands-on jet physics using Python `fastjet` to understand sequential recombination jet algorithms.
+- **Topics**:
+  - Anti-$k_t$ clustering on particle/constituent collections across multiple radius parameters ($R = 0.4, 0.8, 1.0$).
+  - Comparing small-$R$ vs. large-$R$ jet multiplicity, constituent containment, and energy fraction.
+  - Reclustering large-$R$ jets into subjets to expose two-prong $Z \to b\bar{b}$ decayed resonance geometry.
 
-## Technical Parameters
+---
 
-- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.16`.
-- **Process Syntax**: `import model sm`, `generate p p > z j, z > b b~`, `output Zbbj_LO`, `launch Zbbj_LO`.
-- **Collider Center-of-Mass Energy**: $\sqrt{s} = 13\text{ TeV}$ (`ebeam1 = 6500 GeV`, `ebeam2 = 6500 GeV`).
-- **Boost Cut**: `ptj = 150.0 GeV` / `ptZmin = 150.0 GeV` in `cards/zbbj_run_card.dat`.
-- **Production Event Count**: $N = 1000$ unweighted events.
+## Technical Environment & Prerequisites
+
+All notebooks are designed to run in **Google Colab** or standard Linux/macOS Python 3 environments.
+- **Compilers & Runtimes**: Python 3.10+, C++/Fortran (`gfortran`).
+- **Core Python Ecosystem**: `numpy`, `matplotlib`, `mplhep`, `pylhe`, `uproot`, `awkward`, `fastjet`.
+
+For part-specific instructions and card files, see the `README.md` in each subfolder (e.g., [Part1_MadGraph_Zbb/README.md](file:///home/a/temp/intern-tut/Part1_MadGraph_Zbb/README.md)).
