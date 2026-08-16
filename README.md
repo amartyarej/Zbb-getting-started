@@ -21,7 +21,7 @@ The repository is organized into three self-contained parts:
   - `Part1_01_process_to_lhe.ipynb`: MadGraph setup, cards configuration, test run ($N = 10$ events), production run ($N = 1000$ events), and LHE XML inspection.
   - `Part1_02_read_lhe_and_plot_kinematics.ipynb`: LHE parsing, 4-vector reconstruction ($p_Z^\mu = p_b^\mu + p_{\bar{b}}^\mu$), 1D/2D histograms with `mplhep`, and analytical boost guide comparison ($\Delta R_{b\bar{b}} \approx 2m_Z / p_T^Z$).
 
-### 2. Part 2: Detector-Level ROOT Analysis, EDA, Taggers, Sculpting, & MC Normalisation
+### 2. Part 2: Detector-Level ROOT Analysis, Exploratory data analysis, Taggers, Sculpting, & MC Normalisation
 - **Directory**: `Part2_Detector_Analysis/` *(In development)*
 - **Core Focus**: Exploratory data analysis of detector-level ROOT `TTree` objects.
 - **Topics** including:
