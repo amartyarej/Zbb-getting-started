@@ -35,7 +35,7 @@ Part1_MadGraph_Zbb/
 
 1. **`Part1_01_process_to_lhe.ipynb`**:
    - Environment verification (`gfortran --version`, `python3 --version`).
-   - Download & installation of MadGraph5_aMC@NLO `v3.5.3`.
+   - Download & installation of MadGraph5_aMC@NLO `v3.5.16`.
    - Physics foundations (Standard Model, $Z \to b\bar{b}$ branching fraction $\text{BR}(Z \to b\bar{b}) \approx 15.1\%$, boosted topology).
    - Process card & run card configuration (`cards/zbbj_proc_card.dat`, `cards/zbbj_run_card.dat`).
    - 10-event test generation ($N = 10$) with log inspection.
@@ -51,7 +51,7 @@ Part1_MadGraph_Zbb/
 
 ## Technical Parameters
 
-- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.3`.
+- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.16`.
 - **Process Syntax**: `import model sm`, `generate p p > z j, z > b b~`, `output Zbbj_LO`, `launch Zbbj_LO`.
 - **Collider Center-of-Mass Energy**: $\sqrt{s} = 13\text{ TeV}$ (`ebeam1 = 6500.0 GeV`, `ebeam2 = 6500.0 GeV`).
 - **Boost Cut**: $p_T^j \ge 150.0\text{ GeV}$ / $p_{T,\text{min}}^Z \ge 150.0\text{ GeV}$ (`ptj = 150.0`, `ptZmin = 150.0` in `cards/zbbj_run_card.dat`).
