@@ -33,8 +33,9 @@ The repository is organized into three self-contained parts:
 - **Directory**: `Part3_Jet_Clustering_FastJet/` *(In development)*
 - **Core Focus**: Hands-on jet physics using Python `fastjet` and equivalent scripts to understand sequential recombination jet algorithms.
 - **Topics**:
-  - Anti-$k_t$ clustering on particle/constituent collections across multiple radius parameters ($R = 0.4, 1.0$).
+  - $\text{anti-}k_t$ clustering on particle/constituent collections across multiple radius parameters ($R = 0.4, 1.0$).
   - Reclustering large-$R$ jets into subjets to expose two-prong $Z \to b\bar{b}$ decayed resonance geometry.
+
 ---
 
 ## Technical Environment & Prerequisites
