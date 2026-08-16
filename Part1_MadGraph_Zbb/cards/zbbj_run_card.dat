@@ -1,33 +1,57 @@
 #*********************************************************************
-# MadGraph5_aMC@NLO Run Card for Boosted Z -> b b~ + jet (LO)        *
-# Process: p p > z j, z > b b~                                       *
-# Energy: sqrt(s) = 13 TeV                                           *
-# Boost cut: ptZmin = 150.0 GeV / ptj = 150.0 GeV                     *
+#                       MadGraph5_aMC@NLO                            *
+#                     run_card.dat MadEvent                          *
+# Process: p p > z j, z > b b~ (LO)                                  *
 #*********************************************************************
-#
-# Event Generation Details
-#
- -1       = nevents     ! Number of unweighted events requested
- 42       = iseed       ! Random seed (0 = auto-generate)
-#
-# Beam Physics
-#
- 6500.0   = ebeam1      ! Beam 1 energy in GeV (13 TeV CoM energy)
- 6500.0   = ebeam2      ! Beam 2 energy in GeV
- 1        = lpp1        ! Beam 1 type (1 = proton)
- 1        = lpp2        ! Beam 2 type (1 = proton)
-#
-# Kinematic Cuts (Boosted Selection)
-#
- 150.0    = ptj         ! Minimum pT for the recoiling jet (GeV)
- 150.0    = ptZmin      ! Minimum pT for the Z boson (GeV)
- 0.0      = ptb         ! Minimum pT for b quarks (GeV)
- 5.0      = etaj        ! Maximum pseudorapidity for jets
- 5.0      = etab        ! Maximum pseudorapidity for b quarks
- 0.4      = drjj        ! Minimum Delta R between jets
- 0.0      = drbb        ! Minimum Delta R between b quarks
-#
-# Renormalization & Factorization Scales
-#
- -1.0     = dynamical_scale_choice ! -1 = default central scale
-#
+# Number of events and rnd seed                                      *
+#*********************************************************************
+  -1         = nevents ! Number of unweighted events requested
+  0          = iseed ! rnd seed (0=assigned automatically=default))
+#*********************************************************************
+# Collider type and energy                                           *
+#*********************************************************************
+  1	= lpp1 ! beam 1 type (1 = proton)
+  1	= lpp2 ! beam 2 type (1 = proton)
+  6500.0	= ebeam1 ! beam 1 total energy in GeV (13 TeV CoM)
+  6500.0	= ebeam2 ! beam 2 total energy in GeV
+#*********************************************************************
+# PDF CHOICE                                                         *
+#*********************************************************************
+  nn23lo1	= pdlabel1 ! PDF type for beam #1
+  nn23lo1	= pdlabel2 ! PDF type for beam #2
+  230000	= lhaid ! LHAPDF ID
+#*********************************************************************
+# Renormalization and factorization scales                           *
+#*********************************************************************
+  False	= fixed_ren_scale
+  False	= fixed_fac_scale1
+  False	= fixed_fac_scale2
+  -1	= dynamical_scale_choice ! -1 = default central scale
+  1.0	= scalefact
+#*********************************************************************
+# Standard Cuts & Boosted Selection                                  *
+#*********************************************************************
+  150.0	= ptj ! minimum pt for the jets
+  0.0	= ptb ! minimum pt for the b
+  -1.0	= ptjmax ! maximum pt for the jets
+  -1.0	= ptbmax ! maximum pt for the b
+  {23: 150.0}	= pt_min_pdg ! pt cut for Z boson (PDG 23)
+  {}	= pt_max_pdg
+#*********************************************************************
+# Maximum and minimum absolute rapidity                              *
+#*********************************************************************
+  5.0	= etaj ! max rap for the jets
+  5.0	= etab ! max rap for the b
+  0.0	= etabmin ! min rap for the b
+#*********************************************************************
+# Minimum and maximum DeltaR distance & invariant mass for b-pairs   *
+#*********************************************************************
+  0.0	= drbb ! min distance between b's
+  0.0	= drbj ! min distance between b and jet
+  0.0	= mmbb ! min invariant mass of a b pair
+  -1.0	= mmbbmax ! max invariant mass of a b pair
+  0.0	= xptb ! minimum pt for at least one b
+#*********************************************************************
+# Maximum pdg code for quark to be considered as a light jet         *
+#*********************************************************************
+  4	= maxjetflavor ! 4 = u,d,s,c are light jets, b is heavy
