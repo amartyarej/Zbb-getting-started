@@ -1,5 +1,26 @@
-# Core dependencies for Part 1 (Part1_MadGraph_Zbb) — LHE Exploration & Generator Kinematics
+# ==============================================================================
+# Python Requirements
+# Works for both Google Colab and Local Machine (Virtualenv / Conda / Jupyter)
+# ==============================================================================
+
+# ── Core HEP Analysis & Kinematic Visualization ────────────────────────────────
 numpy>=1.22.0
 matplotlib>=3.5.0
 mplhep>=0.3.26
 pylhe>=0.6.0
+scipy>=1.8.0
+
+# ── Interactive Notebook & Display Dependencies (Local Setup) ─────────────────
+ipython>=7.30.0
+ipykernel>=6.0.0
+notebook>=6.4.0
+jupyterlab>=3.0.0
+
+# ── System (Non-Python) Dependencies ──────────────────────────────────────────
+# For local execution, ensure the following system binaries are installed on your PATH:
+# 1. Fortran Compiler (required by MadGraph to compile matrix elements):
+#    - Ubuntu/Debian: sudo apt install gfortran
+#    - macOS:         brew install gcc
+# 2. Ghostscript & Poppler (required for inline Feynman diagram PDF -> PNG rendering):
+#    - Ubuntu/Debian: sudo apt install ghostscript poppler-utils
+#    - macOS:         brew install ghostscript poppler
