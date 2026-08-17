@@ -32,7 +32,6 @@ Part1_MadGraph_Zbb/
 ├── Part1_02_read_lhe_and_plot_kinematics.ipynb   # Notebook 02 (Read LHE & Plot Kinematics)
 ├── requirements.txt
 ├── README.md
-├── checksums.sha256
 └── cards/
     ├── zbbj_proc_card.dat                         # Process Card
     └── zbbj_run_card.dat                          # Run Card
@@ -41,9 +40,9 @@ Part1_MadGraph_Zbb/
 ## Notebook Sequence
 
 1. **`Part1_01_process_to_lhe.ipynb`**:
-   - **Step 1**: Environment setup (`USE_COLAB` choice) & system dependency check (`gfortran`).
-   - **Step 2**: Download & installation of MadGraph5_aMC@NLO `v3.5.16` into persistent output workspace.
-   - **Step 3**: Physics foundations (Standard Model electroweak/QCD couplings, $Z \to b\bar{b}$ branching fraction $\text{BR}(Z \to b\bar{b}) \approx 15.1\%$, boosted angular collimation).
+   - **Step 1**: Integrated Physics Foundations & Standard Model Review (Fermions & Bosons, Standard Model chart, Particle Data Group PDG ID scheme, vector boson production $pp \to Z+j$, boosted $Z \to b\bar{b}$ topology $\Delta R \approx 2m_Z/p_T^Z$, and generator vs. detector simulation pipeline).
+   - **Step 2**: Environment setup (`USE_COLAB` choice & `LOCAL_OUTPUT_DIR`) & system dependency check (`gfortran`).
+   - **Step 3**: Download & installation of MadGraph5_aMC@NLO `v3.5.16` into persistent output workspace.
    - **Step 4**: Process card & run card configuration (`cards/zbbj_proc_card.dat`, `cards/zbbj_run_card.dat`).
    - **Step 5**: Test run ($N = 10$) with log reading & **Checkpoint 5.1** (stdout cross section, Feynman diagram count, and process `Cards/` directory inspection).
    - **Step 6**: Les Houches Event (LHE) XML structure inspection & inline Feynman diagram visualizer (`feynman_diagrams.pdf`).
@@ -58,7 +57,7 @@ Part1_MadGraph_Zbb/
 
 ## Technical Parameters
 
-- **MadGraph Release**: MadGraph5_aMC@NLO `v3.5.16`.
-- **Process Syntax**: `import model sm`, `generate p p > z j, z > b b~`, `output Zbbj_LO`, `launch Zbbj_LO`.
+- **MadGraph Release**: MadGraph5_aMC@NLO
+- **Process**: `generate p p > z j, z > b b~`,
 - **Test Event Count**: $N = 10$ events (`Zbbj_test/`).
 - **Production Event Count**: $N = 1000$ unweighted events (`Zbbj_LO/`).
