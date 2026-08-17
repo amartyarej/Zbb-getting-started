@@ -4,13 +4,13 @@ This directory contains the standalone package for **Part 1** of the experimenta
 
 ## Overview & Pedagogical Purpose
 
-Part 1 guides an experimental-HEP student from process definition to matrix element event generation and LHE kinematic exploration:
+Part 1 guides you from process definition to matrix element event generation and LHE kinematic exploration:
 
 ```text
 Process Definition ──> MadGraph Cards ──> Parton-Level LHE File ──> Event Record Inspection ──> Generator Kinematics
 ```
 
-Students study proton-proton production of a $Z$ boson recoiling against a hard matrix-element jet ($pp \to Z + j$), with the $Z$ forced to decay to a bottom-quark pair ($Z \to b\bar{b}$):
+In this module, you will study proton-proton production of a $Z$ boson recoiling against a hard matrix-element jet ($pp \to Z + j$), with the $Z$ forced to decay to a bottom-quark pair ($Z \to b\bar{b}$):
 ```text
 p p > z j, z > b b~
 ```
@@ -39,25 +39,12 @@ Part1_MadGraph_Zbb/
 
 ## Notebook Sequence
 
-1. **`Part1_01_process_to_lhe.ipynb`**:
-   - **Step 1**: Integrated Physics Foundations & Standard Model Review (Fermions & Bosons, Standard Model chart, Particle Data Group PDG ID scheme, vector boson production $pp \to Z+j$, boosted $Z \to b\bar{b}$ topology $\Delta R \approx 2m_Z/p_T^Z$, and generator vs. detector simulation pipeline).
-   - **Step 2**: Environment setup (`USE_COLAB` choice & `LOCAL_OUTPUT_DIR`) & system dependency check (`gfortran`).
-   - **Step 3**: Download & installation of MadGraph5_aMC@NLO `v3.5.16` into persistent output workspace.
-   - **Step 4**: Process card & run card configuration (`cards/zbbj_proc_card.dat`, `cards/zbbj_run_card.dat`).
-   - **Step 5**: Test run ($N = 10$) with log reading & **Checkpoint 5.1** (stdout cross section, Feynman diagram count, and process `Cards/` directory inspection).
-   - **Step 6**: Les Houches Event (LHE) XML structure inspection & inline Feynman diagram visualizer (`feynman_diagrams.pdf`).
-   - **Step 7**: Production run ($N = 1000$ events, saved to `Zbbj_LO/Events/run_01/unweighted_events.lhe.gz`).
-
-2. **`Part1_02_read_lhe_and_plot_kinematics.ipynb`**:
-   - **Step 1**: Environment setup (`USE_COLAB` choice) & persistent LHE file verification.
-   - **Step 2**: Four-vector reconstruction ($p_Z^\mu = p_b^\mu + p_{\bar{b}}^\mu$), version-safe `pylhe` event streaming, and **Checkpoint 2.2** (Breit-Wigner peak physics & Monte Carlo event weights).
-   - **Step 3**: 1D kinematic histogram suite formatted with `mplhep` (CMS style), including interactive student exercises (3b: $p_T^b, p_T^{\bar{b}}$, 3c: $\eta_b, \eta_{\bar{b}}$, 3d: $m_{b\bar{b}}$, 3e: $\Delta R_{b\bar{b}}$) with hidden `<details><summary>` reference solutions.
-   - **Step 4**: 2D correlation histogram ($\Delta R_{b\bar{b}}$ vs. $p_T^Z$) with theoretical boost guide overlay ($\Delta R_{b\bar{b}} \approx 2m_Z / p_T^Z$) and **Checkpoint 2.3** (opening angle & single large-$R$ jet containment threshold $p_T^Z \ge 228\text{ GeV}$).
-   - **Step 5**: Advanced exploration & independent student exercises menu (generation cuts `ptj`, `ptb`, `drbb`, `mmbb`, `ebeam`; new observables $\Delta\phi_{b\bar{b}}$, $\Delta\eta_{b\bar{b}}$, recoiling jet kinematics, decay asymmetry $z$; offline analysis cuts $p_T^Z > 250\text{ GeV}$, $|\eta_b| < 2.5$; student playground code cell).
+1. **`Part1_01_process_to_lhe.ipynb`**: Learn Standard Model physics foundations, set up your execution environment, configure MadGraph process cards, and generate parton-level Les Houches Event (LHE) files for boosted $Z \to b\bar{b}$ production.
+2. **`Part1_02_read_lhe_and_plot_kinematics.ipynb`**: Stream LHE event records with `pylhe`, reconstruct four-vector kinematics of the $Z$ boson, plot CMS-style 1D/2D histograms with `mplhep`, and verify relativistic boost collimation ($\Delta R_{b\bar{b}} \approx 2m_Z / p_T^Z$).
 
 ## Technical Parameters
 
 - **MadGraph Release**: MadGraph5_aMC@NLO
-- **Process**: `generate p p > z j, z > b b~`,
-- **Test Event Count**: $N = 10$ events (`Zbbj_test/`).
-- **Production Event Count**: $N = 1000$ unweighted events (`Zbbj_LO/`).
+- **Process**: `generate p p > z j, z > b b~`
+- **Test Event Count**: $N = 10$ events (`Zbbj_test/`)
+- **Production Event Count**: $N = 1000$ unweighted events (`Zbbj_LO/`)
