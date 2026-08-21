@@ -6,7 +6,7 @@ Welcome to the **Experimental High-Energy Physics (HEP) Training Series**. This 
 
 The training program covers the physics simulation and analysis workflow:
 
-$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Detector-Level Analysis} \longrightarrow \text{Part 3: Jet Clustering and Subjets}$$
+$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Jet Clustering and Subjets} \longrightarrow \text{Part 3: Detector-Level ROOT Analysis & ML}$$
 
 ---
 
@@ -21,20 +21,19 @@ The repository is organized into three self-contained parts:
   - `Part1_01_process_to_lhe.ipynb`: MadGraph setup, cards configuration, test run ($N = 10$ events), production run ($N = 1000$ events), and LHE XML inspection.
   - `Part1_02_read_lhe_and_plot_kinematics.ipynb`: LHE parsing, 4-vector reconstruction ($p_Z^\mu = p_b^\mu + p_{\bar{b}}^\mu$), 1D/2D histograms with `mplhep`, and analytical boost guide comparison ($\Delta R_{b\bar{b}} \approx 2m_Z / p_T^Z$).
 
-### 2. Part 2: Detector-Level ROOT Analysis, Exploratory data analysis, Taggers, Sculpting, & MC Normalisation
-- **Directory**: `Part2_Detector_Analysis/` *(In development)*
+### 2. [Part 2: Jet Clustering, Radius Dependence, & Subjet Exploration](./Part2_Jets)
+- **Directory**: `Part2_Jets/`
+- **Core Focus**: Hands-on introduction to jet physics using Python `fastjet`, `uproot`, and `awkward` on constituent-level ROOT events (`data/Zbb_RawConst.root`).
+- **Deliverables**:
+  - `Part2_01_jet_clustering_and_subjets.ipynb`: Hadronic physics foundations, sequential recombination algorithms ($anti-k_t$, $k_t$, C/A), constituent $(\eta, \phi)$ visualization, radius parameter scan ($R=0.2, 0.4, 0.8, 1.0$), exclusive $N=2$ subjet reclustering, and Truth vs. EMPFlow comparison.
+
+### 3. Part 3: Detector-Level ROOT Analysis, Exploratory Data Analysis, Taggers, Sculpting, & MC Normalisation
+- **Directory**: `Part3_Detector_Analysis/` *(In development)*
 - **Core Focus**: Exploratory data analysis of detector-level ROOT `TTree` objects.
-- **Topics** including:
+- **Topics**:
   - Understanding use of multi-class machine learning tagger scores (`bb`, `qq`, `q/g`).
   - Understanding tagger mass sculpting.
   - Understanding MC normalisation.
-
-### 3. Part 3: Jet Clustering, Radius Dependence, & Subjet Exploration
-- **Directory**: `Part3_Jet_Clustering_FastJet/` *(In development)*
-- **Core Focus**: Hands-on jet physics using Python `fastjet` and equivalent scripts to understand sequential recombination jet algorithms.
-- **Topics**:
-  - $\text{anti-}k_t$ clustering on particle/constituent collections across multiple radius parameters ($R = 0.4, 1.0$).
-  - Reclustering $\text{large-}R$ jets using $k_T$ and/or Cambridge/Aachen algorithm into subjets to expose two-prong $Z \to b\bar{b}$ decayed resonance geometry.
 
 ---
 

@@ -1,14 +1,21 @@
 # ==============================================================================
-# Python Requirements
+# Experimental HEP Training Series — Unified Python Requirements
 # Works for both Google Colab and Local Machine (Virtualenv / Conda / Jupyter)
+# Covers Part 1 (MadGraph/LHE), Part 2 (Jet Clustering/FastJet), & Part 3 (ROOT/ML)
 # ==============================================================================
 
-# ── Core HEP Analysis & Kinematic Visualization ────────────────────────────────
+# ── Core HEP Analysis, Kinematics, & Visualization ────────────────────────────
 numpy>=1.22.0
 matplotlib>=3.5.0
 mplhep>=0.3.26
 pylhe>=0.6.0
 scipy>=1.8.0
+
+# ── ROOT Data Reading, Vectors, & Jet Clustering (Part 2 & Part 3) ────────────
+uproot>=5.0.0
+awkward>=2.0.0
+vector>=1.0.0
+fastjet>=3.4.0
 
 # ── Interactive Notebook & Display Dependencies (Local Setup) ─────────────────
 ipython>=7.30.0
