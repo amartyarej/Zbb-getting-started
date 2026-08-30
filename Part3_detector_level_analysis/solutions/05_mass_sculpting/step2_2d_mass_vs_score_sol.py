@@ -58,7 +58,7 @@ def main():
     # 3. HEP meaning: Diagnoses conditional mass dependence across score quantile slices.
     # 4. Beginner mistake: Ignoring score-mass correlation across different score ranges.
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 0.2], [0, 250]], norm=LogNorm(), cmap='viridis')
+    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], norm=LogNorm(), cmap='viridis')
     ax.set_xlabel("Standard ParT W-Tagger Score")
     ax.set_ylabel("QCD Jet Mass [GeV]")
     ax.set_title("2D Diagnostic: Jet Mass vs Tagger Score")
