@@ -33,28 +33,34 @@ def main():
         return
         
     # ----------------------------------------------------
-    # Data Loading: ParT Score & Kinematics Extraction
+    # Data Loading: ParT & ANN Scores & Kinematics Extraction
     # ----------------------------------------------------
-    # 1. What code does: Loads ParT score and jet pT from 'reco' tree for Wqq signal and QCD background (entry_stop=15000).
+    # 1. What code does: Loads ParT score, ANN score, and jet pT from 'reco' tree for Wqq signal and QCD background (entry_stop=15000).
     # 2. Data type/shape: 1D NumPy arrays of score floats and pT in GeV.
     # 3. HEP meaning: Provides classifier inputs to calculate signal efficiency vs background rejection.
     # 4. Common beginner mistake: Calculating ROC curves with uncleaned NaN score arrays.
-    branches = ["largeRjet_pt_NOSYS", "largeRjet_ParT_W_massDec_score"]
+    branches = [
+        "largeRjet_pt_NOSYS",
+        "largeRjet_ANN50Tagger_score_NOSYS",
+        "largeRjet_ParT_W_massDec_score"
+    ]
     
     events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=15000)
     events_qcd = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=15000)
     
     pt_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
-    score_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_ParT_W_massDec_score"]), -1.0))
+    score_ann_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_ANN50Tagger_score_NOSYS"]), -1.0))
+    score_part_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_ParT_W_massDec_score"]), -1.0))
     
     pt_qcd = ak.to_numpy(ak.fill_none(ak.firsts(events_qcd["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
-    score_qcd = ak.to_numpy(ak.fill_none(ak.firsts(events_qcd["largeRjet_ParT_W_massDec_score"]), -1.0))
+    score_ann_qcd = ak.to_numpy(ak.fill_none(ak.firsts(events_qcd["largeRjet_ANN50Tagger_score_NOSYS"]), -1.0))
+    score_part_qcd = ak.to_numpy(ak.fill_none(ak.firsts(events_qcd["largeRjet_ParT_W_massDec_score"]), -1.0))
     
-    mask_wqq = (pt_wqq > 200.0) & (score_wqq >= 0)
-    mask_qcd = (pt_qcd > 200.0) & (score_qcd >= 0)
+    mask_wqq = (pt_wqq > 200.0) & (score_ann_wqq >= 0) & (score_part_wqq >= 0)
+    mask_qcd = (pt_qcd > 200.0) & (score_ann_qcd >= 0) & (score_part_qcd >= 0)
     
-    pt_wqq, score_wqq = pt_wqq[mask_wqq], score_wqq[mask_wqq]
-    pt_qcd, score_qcd = pt_qcd[mask_qcd], score_qcd[mask_qcd]
+    pt_wqq, score_ann_wqq, score_part_wqq = pt_wqq[mask_wqq], score_ann_wqq[mask_wqq], score_part_wqq[mask_wqq]
+    pt_qcd, score_ann_qcd, score_part_qcd = pt_qcd[mask_qcd], score_ann_qcd[mask_qcd], score_part_qcd[mask_qcd]
     
     # ----------------------------------------------------
     # EXAMPLE: Evaluating ParT 50% MassDec Working Point
@@ -67,8 +73,8 @@ def main():
     thresh_w50_wqq = eval_part_wp(pt_wqq, "ParT_W_50_MassDec_NOSYS")
     thresh_w50_qcd = eval_part_wp(pt_qcd, "ParT_W_50_MassDec_NOSYS")
     
-    eff_sig_w50 = np.mean(score_wqq > thresh_w50_wqq)
-    mistag_bkg_w50 = np.mean(score_qcd > thresh_w50_qcd)
+    eff_sig_w50 = np.mean(score_part_wqq > thresh_w50_wqq)
+    mistag_bkg_w50 = np.mean(score_part_qcd > thresh_w50_qcd)
     
     print(f"ParT 50% MassDec WP Signal Efficiency:   {eff_sig_w50 * 100:.2f}%")
     print(f"ParT 50% MassDec WP Background Mistag:    {mistag_bkg_w50 * 100:.2f}%")
@@ -78,20 +84,29 @@ def main():
     # SOLUTION: EXERCISE TASK 2
     # ====================================================
     # Explanation:
-    # 1. What code does: Scans score thresholds from 0 to 1 and plots ROC curve.
+    # 1. What code does: Scans score thresholds from 0 to 1 and plots ROC curves for both ANN and ParT taggers.
     # 2. Data type/shape: matplotlib line plot with log y-axis.
     # 3. HEP meaning: ROC curves map full signal efficiency vs background rejection trade-off profile.
     # 4. Beginner mistake: Plotting background mistag rate on linear scale instead of log rejection.
     thresholds = np.linspace(0, 1, 100)
-    eff_sig_list = [np.mean(score_wqq > t) for t in thresholds]
-    mistag_bkg_list = [np.mean(score_qcd > t) for t in thresholds]
+    
+    # ParT W-MassDec Tagger
+    eff_sig_part = [np.mean(score_part_wqq > t) for t in thresholds]
+    mistag_bkg_part = [np.mean(score_part_qcd > t) for t in thresholds]
+    rej_bkg_part = 1.0 / np.maximum(1e-5, np.array(mistag_bkg_part))
+    
+    # ANN W-Tagger
+    eff_sig_ann = [np.mean(score_ann_wqq > t) for t in thresholds]
+    mistag_bkg_ann = [np.mean(score_ann_qcd > t) for t in thresholds]
+    rej_bkg_ann = 1.0 / np.maximum(1e-5, np.array(mistag_bkg_ann))
     
     plt.figure(figsize=(6, 5))
-    plt.plot(eff_sig_list, 1.0 / np.maximum(1e-5, np.array(mistag_bkg_list)), color='purple', linewidth=2, label='ParT W-MassDec')
+    plt.plot(eff_sig_part, rej_bkg_part, color='purple', linewidth=2, label='ParT W-MassDec')
+    plt.plot(eff_sig_ann, rej_bkg_ann, color='crimson', linewidth=2, linestyle='--', label='ANN W-Tagger')
     plt.xlabel(r"Signal Efficiency $\epsilon_{\rm sig}$")
     plt.ylabel(r"Background Rejection $1 / \epsilon_{\rm bkg}$")
     plt.yscale('log')
-    plt.title("ROC Curve Solution: W-Tagger Performance")
+    plt.title("ROC Curve Solution: ANN vs ParT W-Tagger Performance")
     plt.grid(True, which='both', linestyle='--', alpha=0.5)
     plt.legend()
     plt.tight_layout()
