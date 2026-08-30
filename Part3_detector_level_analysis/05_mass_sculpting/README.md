@@ -24,7 +24,7 @@
 
 ### Step 2: `step2_2d_mass_vs_score.py`
 - **Example**: Create a 2D diagnostic histogram of QCD Jet Mass vs. Standard Tagger Score.
-- **Task**: Plot quantile slicing lines across score quantiles (50th, 80th percentiles) and explain why standard taggers sculpt a fake background peak.
+- **Task**: Plot working point threshold lines (50% and 80% ParT WPs) on the 2D Mass vs. Score histogram and explain why standard taggers sculpt a fake background peak.
 
 ---
 

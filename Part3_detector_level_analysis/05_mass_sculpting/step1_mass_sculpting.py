@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, eval_part_wp, setup_mplhep_style
 
 def main():
     # ----------------------------------------------------
@@ -48,20 +48,21 @@ def main():
     
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
     mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))
-    s_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_std_score"]), np.nan))
+    s_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_score"]), np.nan))
     s_mdec = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_massDec_score"]), np.nan))
     
     valid = ~np.isnan(pt) & ~np.isnan(mass) & (pt > 250.0)
-    mass, score_std, score_dec = mass[valid], s_std[valid], s_mdec[valid]
+    pt, mass, score_std, score_dec = pt[valid], mass[valid], s_std[valid], s_mdec[valid]
     
     # ----------------------------------------------------
-    # EXAMPLE: Standard Tagger Score Quantile Cut
+    # EXAMPLE: Standard Tagger 80% Functional WP Cut
     # ----------------------------------------------------
-    cut_std_80 = score_std > np.percentile(score_std, 80.0)
+    thresh_std_80 = eval_part_wp(pt, "ParT_W_80_NOSYS")
+    cut_std_80 = score_std > thresh_std_80
     
     fig, ax = plt.subplots(figsize=(6, 4.5))
     ax.hist(mass, bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='black', label='Inclusive QCD')
-    ax.hist(mass[cut_std_80], bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='crimson', label='Standard Score > 80% Quantile')
+    ax.hist(mass[cut_std_80], bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='crimson', label='Standard ParT (80% WP)')
     ax.set_xlabel("QCD Jet Mass [GeV]")
     ax.set_ylabel("Normalized Density")
     ax.set_title("Standard ParT W-Tagger (Mass Sculpted)")
@@ -75,7 +76,7 @@ def main():
     # TODO: EXERCISE TASK 1
     # ====================================================
     # Task Instructions:
-    # 1. Apply mass-decorrelated score cuts: cut_dec_80 = score_dec > np.percentile(score_dec, 80.0).
+    # 1. Evaluate mass-decorrelated 80% WP cut: thresh_dec_80 = eval_part_wp(pt, "ParT_W_80_MassDec_NOSYS") and cut_dec_80 = score_dec > thresh_dec_80.
     # 2. Create a 2-panel figure comparing Standard Tagger mass sculpting vs. Mass-Decorrelated Tagger.
     # 3. Add labels, legends, and save figure to 'exercise5_step1_mass_sculpting.png'.
     # ----------------------------------------------------

@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, eval_part_wp, setup_mplhep_style
 
 def main():
     # ----------------------------------------------------
@@ -55,18 +55,19 @@ def main():
     pt, mass, score_std, score_dec = pt[mask], mass[mask], score_std[mask], score_dec[mask]
     
     # ----------------------------------------------------
-    # EXAMPLE: Standard Tagger Score Quantile Cut
+    # EXAMPLE: Standard Tagger 80% Functional WP Cut
     # ----------------------------------------------------
     # Explanation:
-    # 1. What code does: Applies 80th percentile score cut on standard ParT W-tagger.
+    # 1. What code does: Applies 80% signal efficiency functional WP cut on standard ParT W-tagger.
     # 2. Data type/shape: 1D Boolean mask of shape (N_events,).
     # 3. HEP meaning: Demonstrates mass sculpting (fake peak creation) on smooth QCD background.
     # 4. Beginner mistake: Testing mass sculpting on signal MC instead of background QCD.
-    cut_std_80 = score_std > np.percentile(score_std, 80.0)
+    thresh_std_80 = eval_part_wp(pt, "ParT_W_80_NOSYS")
+    cut_std_80 = score_std > thresh_std_80
     
     fig, ax = plt.subplots(figsize=(6, 4.5))
     ax.hist(mass, bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='black', label='Inclusive QCD')
-    ax.hist(mass[cut_std_80], bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='crimson', label='Standard Score > 80% Quantile')
+    ax.hist(mass[cut_std_80], bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='crimson', label='Standard ParT (80% WP)')
     ax.set_xlabel("QCD Jet Mass [GeV]")
     ax.set_ylabel("Normalized Density")
     ax.set_title("Standard ParT W-Tagger (Mass Sculpted)")
@@ -80,11 +81,12 @@ def main():
     # SOLUTION: EXERCISE TASK 1
     # ====================================================
     # Explanation:
-    # 1. What code does: Plots 2-panel comparison of standard tagger vs mass-decorrelated tagger.
+    # 1. What code does: Plots 2-panel comparison of standard tagger 80% WP vs mass-decorrelated tagger 80% WP.
     # 2. Data type/shape: matplotlib 2-panel figure.
-    # 3. HEP meaning: Shows how mass decorrelation prevents fake background peaking artifacts.
+    # 3. HEP meaning: Shows how mass decorrelation prevents fake background peaking artifacts across WPs.
     # 4. Beginner mistake: Using un-normalized plots when comparing background mass distribution shapes.
-    cut_dec_80 = score_dec > np.percentile(score_dec, 80.0)
+    thresh_dec_80 = eval_part_wp(pt, "ParT_W_80_MassDec_NOSYS")
+    cut_dec_80 = score_dec > thresh_dec_80
     
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     axes[0].hist(mass, bins=40, range=(0, 250), density=True, histtype='step', linewidth=2, color='black', label='Inclusive QCD')

@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, eval_part_wp, setup_mplhep_style
 
 def main():
     # ----------------------------------------------------
@@ -46,7 +46,7 @@ def main():
     score_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_score"]), -1.0))
     
     mask = (pt > 250.0) & (mass > 0.0) & (score_std >= 0.0)
-    mass, score_std = mass[mask], score_std[mask]
+    pt, mass, score_std = pt[mask], mass[mask], score_std[mask]
     
     # ----------------------------------------------------
     # EXAMPLE: Plotting 2D Mass vs Tagger Score
@@ -65,14 +65,32 @@ def main():
     # TODO: EXERCISE TASK 2
     # ====================================================
     # Task Instructions:
-    # 1. Calculate score quantile thresholds for 50th and 80th percentiles using np.percentile().
-    # 2. Re-plot the 2D Mass vs. Score histogram.
-    # 3. Add vertical dashed lines at the 50th and 80th percentile score values.
+    # 1. Evaluate working point thresholds for 50% and 80% ParT W-taggers:
+    thresh_50 = eval_part_wp(pt, "ParT_W_50_NOSYS")
+    thresh_80 = eval_part_wp(pt, "ParT_W_80_NOSYS")
+    
+    # 2. Compute the mean score threshold per mass bin across 30 mass bins in [0, 250] GeV.
+    mass_bins = np.linspace(0, 250, 31)
+    mass_centers = 0.5 * (mass_bins[:-1] + mass_bins[1:])
+    
+    t50_per_mass = []
+    t80_per_mass = []
+    
+    for i in range(len(mass_bins) - 1):
+        bin_mask = (mass >= mass_bins[i]) & (mass < mass_bins[i+1])
+        if np.any(bin_mask):
+            t50_per_mass.append(np.mean(thresh_50[bin_mask]))
+            t80_per_mass.append(np.mean(thresh_80[bin_mask]))
+        else:
+            t50_per_mass.append(np.nan)
+            t80_per_mass.append(np.nan)
+
+    # 3. Re-plot the 2D Mass vs. Score histogram and overlay the mean working point threshold curves (score vs mass).
     # 4. Save your figure to 'exercise5_step2_2d_diagnostic.png'.
     # ----------------------------------------------------
     # Write your code below:
     
-    # TODO: Calculate percentiles and plot 2D diagnostic with cut lines
+    # TODO: Calculate mean threshold per mass bin and overlay WP curves on 2D diagnostic plot
 
 if __name__ == "__main__":
     main()

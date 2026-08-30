@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, eval_part_wp, setup_mplhep_style
 
 def main():
     # ----------------------------------------------------
@@ -46,7 +46,7 @@ def main():
     score_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_score"]), -1.0))
     
     mask = (pt > 250.0) & (mass > 0.0) & (score_std >= 0.0)
-    mass, score_std = mass[mask], score_std[mask]
+    pt, mass, score_std = pt[mask], mass[mask], score_std[mask]
     
     # ----------------------------------------------------
     # EXAMPLE: Plotting 2D Mass vs Tagger Score
@@ -70,20 +70,35 @@ def main():
     # SOLUTION: EXERCISE TASK 2
     # ====================================================
     # Explanation:
-    # 1. What code does: Computes 50th and 80th score percentiles and overlays vertical cut lines on 2D histogram.
-    # 2. Data type/shape: matplotlib 2D histogram plot with axvline.
-    # 3. HEP meaning: Visualizes exact score threshold boundaries used for working points.
-    # 4. Beginner mistake: Forgetting to plot 2D density alongside 1D projection overlays.
-    p50 = np.percentile(score_std, 50.0)
-    p80 = np.percentile(score_std, 80.0)
+    # 1. What code does: Computes actual 50% and 80% ParT working point thresholds and averages thresholds per mass bin.
+    # 2. Data type/shape: matplotlib 2D histogram plot with overlaid threshold curves.
+    # 3. HEP meaning: Visualizes mean score threshold profile across mass bins to diagnose mass correlation.
+    # 4. Beginner mistake: Forgetting to plot 2D density alongside working point threshold curves.
+    thresh_50 = eval_part_wp(pt, "ParT_W_50_NOSYS")
+    thresh_80 = eval_part_wp(pt, "ParT_W_80_NOSYS")
     
+    mass_bins = np.linspace(0, 250, 31)
+    mass_centers = 0.5 * (mass_bins[:-1] + mass_bins[1:])
+    
+    t50_per_mass = []
+    t80_per_mass = []
+    
+    for i in range(len(mass_bins) - 1):
+        bin_mask = (mass >= mass_bins[i]) & (mass < mass_bins[i+1])
+        if np.any(bin_mask):
+            t50_per_mass.append(np.mean(thresh_50[bin_mask]))
+            t80_per_mass.append(np.mean(thresh_80[bin_mask]))
+        else:
+            t50_per_mass.append(np.nan)
+            t80_per_mass.append(np.nan)
+            
     fig, ax = plt.subplots(figsize=(7, 5))
     h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], cmap='inferno')
-    ax.axvline(p50, color='orange', linestyle='--', linewidth=2, label='50th Percentile Cut')
-    ax.axvline(p80, color='cyan', linestyle='--', linewidth=2, label='80th Percentile Cut')
+    ax.plot(t50_per_mass, mass_centers, color='orange', linestyle='--', linewidth=2, label='ParT 50% WP (mean per mass bin)')
+    ax.plot(t80_per_mass, mass_centers, color='cyan', linestyle='--', linewidth=2, label='ParT 80% WP (mean per mass bin)')
     ax.set_xlabel("Standard ParT W-Tagger Score")
     ax.set_ylabel("QCD Jet Mass [GeV]")
-    ax.set_title("2D Diagnostic Solution with Quantile Cuts")
+    ax.set_title("2D Diagnostic Solution with Mass-Binned WP Threshold Curves")
     ax.legend()
     fig.colorbar(h2d[3], ax=ax, label="QCD Events")
     
