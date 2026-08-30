@@ -74,14 +74,36 @@ def main():
     dbb_qcd, dqq_qcd = get_discriminants(qcd_path)
     
     # ----------------------------------------------------
-    # EXAMPLE: 2D Histogram of D_bb vs D_qq for Zbb Signal
+    # EXAMPLE 1: 1D D_qq Score Distribution Across 3 Processes
+    # ----------------------------------------------------
+    # Explanation:
+    # 1. What code does: Overlays 1D D_qq ratio score distributions for Zbb signal, Wqq background, and QCD background.
+    # 2. Data type/shape: 1D step histogram.
+    # 3. HEP meaning: Visualizes D_qq score separation power between light-quark Wqq decays and QCD dijets.
+    # 4. Beginner mistake: Forgetting to normalize 1D histograms when comparing different sample sizes.
+    fig, ax = plt.subplots(figsize=(6.5, 5))
+    ax.hist(dqq_zbb, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='crimson', label=r'$Z\to b\bar{b}$ MC')
+    ax.hist(dqq_wqq, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='dodgerblue', label=r'$W\to q\bar{q}$ MC')
+    ax.hist(dqq_qcd, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='black', label='Dijet QCD MC')
+    ax.set_xlabel(r"GN3X $D_{qq}$ Discriminant Score")
+    ax.set_ylabel("Normalized Density")
+    ax.set_title(r"Multiclass $D_{qq}$ Score Separation")
+    ax.legend()
+    ax.grid(True, alpha=0.4)
+    plt.tight_layout()
+    plt.savefig("exercise6_step3_example_1d_dqq_score.png", dpi=200)
+    print("Saved example 1D plot to 'exercise6_step3_example_1d_dqq_score.png'.")
+
+    # ----------------------------------------------------
+    # EXAMPLE 2: 2D Histogram of D_bb vs D_qq for Zbb Signal
     # ----------------------------------------------------
     # Explanation:
     # 1. What code does: Plots 2D density histogram of D_bb vs D_qq for Zbb signal events.
     # 2. Data type/shape: Matplotlib 2D histogram.
     # 3. HEP meaning: Demonstrates high D_bb and low D_qq clustering for Zbb signal.
+    # 4. Beginner mistake: Omitting logarithmic scaling on colorbar.
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
+    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
     ax.set_xlabel(r"GN3X $D_{bb}$ Score")
     ax.set_ylabel(r"GN3X $D_{qq}$ Score")
     ax.set_title(r"2D Discriminant Plane ($Z\to b\bar{b}$ MC)")
@@ -107,7 +129,7 @@ def main():
     ]
     
     for ax_i, (dbb_i, dqq_i, title_i) in zip(axes, samples_data):
-        h2d = ax_i.hist2d(dbb_i, dqq_i, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
+        h2d = ax_i.hist2d(dbb_i, dqq_i, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
         ax_i.set_xlabel(r"GN3X $D_{bb}$ Score")
         ax_i.set_ylabel(r"GN3X $D_{qq}$ Score")
         ax_i.set_title(title_i)

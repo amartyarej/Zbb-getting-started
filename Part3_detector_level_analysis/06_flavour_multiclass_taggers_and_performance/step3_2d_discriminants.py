@@ -74,10 +74,26 @@ def main():
     dbb_qcd, dqq_qcd = get_discriminants(qcd_path)
     
     # ----------------------------------------------------
-    # EXAMPLE: 2D Histogram of D_bb vs D_qq for Zbb Signal
+    # EXAMPLE 1: 1D D_qq Score Distribution Across 3 Processes
     # ----------------------------------------------------
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
+    ax.hist(dqq_zbb, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='crimson', label=r'$Z\to b\bar{b}$ MC')
+    ax.hist(dqq_wqq, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='dodgerblue', label=r'$W\to q\bar{q}$ MC')
+    ax.hist(dqq_qcd, bins=50, range=(0, 1), density=True, histtype='step', linewidth=2, color='black', label='Dijet QCD MC')
+    ax.set_xlabel(r"GN3X $D_{qq}$ Discriminant Score")
+    ax.set_ylabel("Normalized Density")
+    ax.set_title(r"Multiclass $D_{qq}$ Score Separation")
+    ax.legend()
+    ax.grid(True, alpha=0.4)
+    plt.tight_layout()
+    plt.savefig("exercise6_step3_example_1d_dqq_score.png", dpi=200)
+    print("Saved example 1D plot to 'exercise6_step3_example_1d_dqq_score.png'.")
+
+    # ----------------------------------------------------
+    # EXAMPLE 2: 2D Histogram of D_bb vs D_qq for Zbb Signal
+    # ----------------------------------------------------
+    fig, ax = plt.subplots(figsize=(6.5, 5))
+    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
     ax.set_xlabel(r"GN3X $D_{bb}$ Score")
     ax.set_ylabel(r"GN3X $D_{qq}$ Score")
     ax.set_title(r"2D Discriminant Plane ($Z\to b\bar{b}$ MC)")
@@ -91,7 +107,7 @@ def main():
     # ====================================================
     # Task Instructions:
     # 1. Create a 3-panel figure comparing 2D histograms of (D_bb vs D_qq) across Zbb signal, Wqq background, and QCD background.
-    # 2. Use range=[[0, 1], [0, 1]] and cmap='viridis' for each panel.
+    # 2. Use range=[[0, 1], [0, 1]], norm=LogNorm(), and cmap='viridis' for each panel.
     # 3. Set proper axis labels (D_bb on x-axis, D_qq on y-axis), panel titles, and add colorbars.
     # 4. Save your figure to 'exercise6_step3_2d_discriminants.png'.
     # ----------------------------------------------------

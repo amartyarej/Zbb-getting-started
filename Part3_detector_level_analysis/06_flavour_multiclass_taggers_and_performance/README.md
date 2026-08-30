@@ -31,7 +31,7 @@ $$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}, \quad D_{qq} = 
 - **Task**: Evaluate background mistag rates (in %) and background rejection factors ($1/\epsilon_{\rm bkg}$, as unitless numbers) on $W\to q\bar{q}$ MC and QCD background MC. Print a performance summary table comparing signal efficiency, mistag rates, and rejection factors.
 
 ### Step 3: `step3_2d_discriminants.py`
-- **Example**: Plot 2D histogram of $D_{bb}$ vs. $D_{qq}$ scores for $Z\to b\bar{b}$ signal MC.
+- **Example**: Overlay 1D $D_{qq}$ score distributions across $Z\to b\bar{b}$, $W\to q\bar{q}$, and QCD dijets, and plot 2D histogram of $D_{bb}$ vs. $D_{qq}$ scores for $Z\to b\bar{b}$ signal MC.
 - **Task**: Create a 3-panel 2D comparison figure of ($D_{bb}$ vs $D_{qq}$) across $Z\to b\bar{b}$ signal, $W\to q\bar{q}$ background, and QCD dijet background samples to demonstrate 2D topological class separation.
 
 ---
