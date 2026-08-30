@@ -8,6 +8,10 @@ import json
 import os
 import numpy as np
 
+# Global event limit for tutorial processing speed
+# Set to None to load all events; 20000 for speed
+MAX_EVENTS = None
+
 def load_metadata(metadata_path=None):
     """
     Loads dataset metadata including cross sections, sum of weights,
