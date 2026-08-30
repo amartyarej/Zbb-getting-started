@@ -53,10 +53,10 @@ python3 step2_performance_grid.py
 python3 step3_2d_discriminants.py
 ```
 
----
+## ❓ Checkpoint Questions
 
-## ❓ Checkpoint Question
-
-> **Why can a large `bb` classifier output enrich a Z→bb MC sample without proving that every selected reconstructed jet originated from a b-quark pair?**
+> **Question 1: Why can a large `bb` classifier output enrich a Z→bb MC sample without proving that every selected reconstructed jet originated from a b-quark pair?**
 >
-> *(Note: Document your answer in your notebook or write-up.)*
+> **Question 2: How can selection boundaries be drawn on the 2D $D_{bb}$ vs. $D_{qq}$ plane to simultaneously isolate $Z\to b\bar{b}$ signal, $W/Z\to q\bar{q}$ hadronic decays, and QCD background jets?**
+>
+> *(Note: Document your answers in your notebook or write-up.)*

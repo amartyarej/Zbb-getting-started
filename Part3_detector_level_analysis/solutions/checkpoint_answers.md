@@ -95,6 +95,20 @@
   - Hadronic jets from $c\bar{c}$ decays, gluon splitting to $b\bar{b}$ in QCD, or overlap pileup tracks can occasionally produce high tagger scores (mistags).
   - Therefore, individual jets in real collision data passing the tagger score cut cannot be individually guaranteed to originate from $b\bar{b}$ without statistical background subtraction and efficiency/mistag calibration.
 
+**Question 2:**
+*“How can selection boundaries be drawn on the 2D $D_{bb}$ vs. $D_{qq}$ plane to simultaneously isolate $Z\to b\bar{b}$ signal, $W/Z\to q\bar{q}$ hadronic decays, and QCD background jets?”*
+
+**Detailed Solution:**
+- **Topological Phase Space Separation**:
+  - $D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\text{QCD\_all}}}$ measures 2-prong $b\bar{b}$ topology strength.
+  - $D_{qq} = \frac{P_{Wqq}}{P_{Wqq} + P_{\text{QCD\_all}}}$ measures 2-prong light-quark $q\bar{q}$ topology strength vs. QCD.
+- **Selection Corner Boundaries**:
+  - **$Z\to b\bar{b}$ Enriched Region**: High $D_{bb}$ and low $D_{qq}$ ($D_{bb} > 0.60, D_{qq} < 0.20$), isolating bottom-quark pair decays.
+  - **$W/Z\to q\bar{q}$ Enriched Region**: Low $D_{bb}$ and high $D_{qq}$ ($D_{bb} < 0.20, D_{qq} > 0.60$), isolating light-quark 2-prong decays while suppressing $b\bar{b}$.
+  - **QCD Dijet Background Region**: Low $D_{bb}$ and low $D_{qq}$ ($D_{bb} < 0.20, D_{qq} < 0.20$), where background dijets cluster near the origin $(0,0)$.
+- **Multi-Region Selection Benefit**:
+  - Orthogonal rectangular cuts on the $(D_{bb}, D_{qq})$ plane allow simultaneous isolation of orthogonal signal categories into distinct analysis channels while cleanly rejecting non-resonant QCD dijet background.
+
 ---
 
 ### Exercise 7 Checkpoint Question
