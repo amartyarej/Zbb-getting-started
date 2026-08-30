@@ -45,7 +45,7 @@ cd Part3_detector_level_analysis
 Shared helper functions for loading metadata, reading trees, computing MC weights, evaluating tagger working points, and distance correlation wrappers are located in **[`helpers.py`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/helpers.py)** in this parent folder.
 
 > [!NOTE]
-> **Robust Dependency Fallbacks in `helpers.py`:
+> **Robust Dependency Fallbacks in `helpers.py`:**
 > - **`mplhep` Alternative**: If `mplhep` is not installed, `helpers.setup_mplhep_style()` automatically falls back to native Matplotlib parameters (`plt.rcParams`).
 > - **`dcor` Alternative**: If `dcor` is not installed, `helpers.compute_distance_correlation()` automatically falls back to a native `scipy.spatial.distance` distance matrix calculation.
 
