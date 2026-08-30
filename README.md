@@ -30,14 +30,6 @@ The repository is organized into three self-contained parts:
 ### 3. [Part 3: Detector-Level ROOT Analysis, Exploratory Data Analysis, Taggers, Sculpting, & MC Normalization](./Part3_detector_level_analysis)
 - **Directory**: `Part3_detector_level_analysis/`
 - **Core Focus**: Reconstructed collision simulation analysis using ROOT `TTree` objects, `uproot`, and `awkward` array tools.
-- **7-Exercise Sequence**:
-  1. ROOT TTree Schema & Jagged Awkward Arrays
-  2. 1D/2D Kinematic Histograms & Multidimensional Selection Cut Effects
-  3. Pearson Matrix & Non-Linear Distance Correlation ($dcor$)
-  4. Binary W-Tagger Working Points & ROC Curves
-  5. Background Mass Sculpting Diagnostics & Decorrelated Discriminants
-  6. Multi-Output Flavour Classifiers (GN3X probabilities & composite $D_{bb}$ ratio)
-  7. Per-Event MC Luminosity Normalization ($44\text{ fb}^{-1}$) & Stacked Process Plots
 
 ---
 
