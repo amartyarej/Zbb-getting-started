@@ -6,7 +6,7 @@ Welcome to the **Experimental High-Energy Physics (HEP) Training Series**. This 
 
 The training program covers the physics simulation and analysis workflow:
 
-$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Jet Clustering and Subjets} \longrightarrow \text{Part 3: Detector-Level ROOT Analysis & ML}$$
+$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Jet Clustering and Subjets} \longrightarrow \text{Part 3: Detector-Level ROOT Analysis \& ML}$$
 
 ---
 
@@ -27,13 +27,17 @@ The repository is organized into three self-contained parts:
 - **Deliverables**:
   - `Part2_01_jet_clustering_and_subjets.ipynb`: Hadronic physics foundations, sequential recombination algorithms ($anti-k_t$, $k_t$, C/A), constituent $(\eta, \phi)$ visualization, radius parameter scan ($R=0.2, 0.4, 0.8, 1.0$), exclusive $N=2$ subjet reclustering, and Truth vs. EMPFlow comparison.
 
-### 3. Part 3: Detector-Level ROOT Analysis, Exploratory Data Analysis, Taggers, Sculpting, & MC Normalisation
-- **Directory**: `Part3_Detector_Analysis/` *(In development)*
-- **Core Focus**: Exploratory data analysis of detector-level ROOT `TTree` objects.
-- **Topics**:
-  - Understanding use of multi-class machine learning tagger scores (`bb`, `qq`, `q/g`).
-  - Understanding tagger mass sculpting.
-  - Understanding MC normalisation.
+### 3. [Part 3: Detector-Level ROOT Analysis, Exploratory Data Analysis, Taggers, Sculpting, & MC Normalization](./Part3_detector_level_analysis)
+- **Directory**: `Part3_detector_level_analysis/`
+- **Core Focus**: Reconstructed collision simulation analysis using ROOT `TTree` objects, `uproot`, and `awkward` array tools.
+- **7-Exercise Sequence**:
+  1. ROOT TTree Schema & Jagged Awkward Arrays
+  2. 1D/2D Kinematic Histograms & Multidimensional Selection Cut Effects
+  3. Pearson Matrix & Non-Linear Distance Correlation ($dcor$)
+  4. Binary W-Tagger Working Points & ROC Curves
+  5. Background Mass Sculpting Diagnostics & Decorrelated Discriminants
+  6. Multi-Output Flavour Classifiers (GN3X probabilities & composite $D_{bb}$ ratio)
+  7. Per-Event MC Luminosity Normalization ($44\text{ fb}^{-1}$) & Stacked Process Plots
 
 ---
 
