@@ -1,5 +1,4 @@
 # Part 3 — Detector-Level ROOT Analysis, EDA, Taggers, Sculpting, and MC Normalization
-*A 5-Day Bachelor-Level Physics Tutorial for High-Energy Physics (HEP) Data Analysis*
 
 Welcome to Part 3 of the tutorial! In Parts 1 and 2, you explored parton-level matrix element kinematics and jet reconstruction. In this final section, you will transition to **detector-level reconstructed collision simulation analysis** using ROOT datasets, Uproot, and Awkward Array.
 
@@ -12,11 +11,11 @@ By completing these exercises, you will learn to:
 2. Distinguish event-level scalar variables, reconstructed jet object collections, and Monte Carlo (MC) truth labels.
 3. Construct 1D and 2D kinematic histograms with proper axis labelling, units, and binning pedagogy.
 4. Understand the **multidimensional phase-space distortion** caused by baseline kinematic selection cuts.
-5. Compute linear (Pearson $r_{XY}$) and non-linear (Distance Correlation $dcor$) dependencies between reconstructed observables.
-6. Evaluate binary machine-learning (ML) taggers ($W$-vs-QCD tagger scores and working points).
+5. [Optional] Compute linear (Pearson $r_{XY}$) and non-linear (Distance Correlation $dcor$) dependencies between reconstructed observables.
+6. Evaluate binary machine-learning (ML) taggers ($W/Z$-vs-q/g jet tagger scores and working points).
 7. Diagnose **mass sculpting** (tagger-induced background shape distortion) and apply mass-decorrelated discriminants.
-8. Interpret multi-output flavour classifiers (GN3X multiclass probabilities for $b\bar{b}$, $q\bar{q}$, and QCD).
-9. Calculate Monte Carlo normalization weights using cross sections, integrated luminosity ($44\text{ fb}^{-1}$), and signed sums of generator weights to build stacked process histograms with statistical uncertainty bands.
+8. Interpret multi-output flavour classifiers (multiclass probabilities for $b\bar{b}$, $q\bar{q}$, and QCD).
+9. Calculate Monte Carlo normalization weights using cross sections, integrated luminosity, and sum of generator weights to build stacked process histograms with statistical uncertainty bands.
 
 ---
 
@@ -24,13 +23,13 @@ By completing these exercises, you will learn to:
 
 The analysis utilizes instructor-provided ROOT datasets containing reconstructed event trees (`reco` TTree):
 
-- **$Z\to b\bar{b}$ MC**: `user.arej.700855...output.root`
-- **$Z\to q\bar{q}$ MC**: `user.arej.700849...output.root`
-- **$W\to q\bar{q}$ MC**: `user.arej.700843...output.root`
-- **Dijet QCD JZ4 MC**: `user.faarodri.364704...output.root`
+- **$Z\to b\bar{b}$ MC**
+- **$Z\to q\bar{q}$ MC**
+- **$W\to q\bar{q}$ MC**
+- **Dijet QCD JZ4 MC**
 
-Full cross sections, entry counts, and sample sums of weights are detailed in [`list_of_files.txt`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/list_of_files.txt).
-Branch mapping and schema definitions are detailed in [`list_of_variables_.txt`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/list_of_variables_.txt).
+Full cross sections, entry counts, and sample sums of weights are detailed in [`metadata_template.json`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/metadata_template.json).
+Branch mapping and schema definitions are detailed in [`branch_mapping_template.json`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/branch_mapping_template.json).
 
 ---
 
@@ -44,6 +43,13 @@ cd Part3_detector_level_analysis
 ```
 
 Shared helper functions for loading metadata, reading trees, computing MC weights, evaluating tagger working points, and distance correlation wrappers are located in **[`helpers.py`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/helpers.py)** in this parent folder.
+
+> [!NOTE]
+> **Robust Dependency Fallbacks in `helpers.py`:
+> - **`mplhep` Alternative**: If `mplhep` is not installed, `helpers.setup_mplhep_style()` automatically falls back to native Matplotlib parameters (`plt.rcParams`).
+> - **`dcor` Alternative**: If `dcor` is not installed, `helpers.compute_distance_correlation()` automatically falls back to a native `scipy.spatial.distance` distance matrix calculation.
+
+Note that the provided ROOT files are for exploration purposes only and are not intended for production analysis.
 
 ---
 
@@ -74,8 +80,3 @@ Each exercise is organized into its own dedicated subfolder containing a `README
    - `step2_stack_plots.py`: Stacked process histograms with $\sum w^2$ error bands.
 
 ---
-
-## 🔑 Solutions & Checkpoint Answers
-
-- Fully worked solutions for each exercise step are located in **[`solutions/`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/solutions/)** inside corresponding exercise subfolders (`solutions/01_root_schema_and_first_eda/`, etc.).
-- Complete, detailed physics solutions for all Checkpoint Questions are documented in **[`solutions/checkpoint_answers.md`](file:///home/a/temp/intern-tut/Part3_detector_level_analysis/solutions/checkpoint_answers.md)**.
