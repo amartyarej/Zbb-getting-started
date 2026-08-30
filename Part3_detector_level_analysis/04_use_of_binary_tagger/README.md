@@ -35,4 +35,4 @@
 
 > **Why does applying a higher binary tagger score threshold increase signal purity while reducing signal efficiency, and why must tagger working points be frozen prior to inspecting mass distributions?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*

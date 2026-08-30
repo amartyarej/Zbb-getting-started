@@ -32,4 +32,4 @@
 
 > **Why can a tagger-selected mass distribution differ significantly from the inclusive mass distribution in background events even when no physical resonance is present?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*

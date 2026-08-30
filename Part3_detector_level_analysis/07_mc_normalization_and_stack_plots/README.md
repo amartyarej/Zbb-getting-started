@@ -43,4 +43,4 @@ Squaring the weights ($w_{\rm norm, i}^2$) ensures that negative generator weigh
 
 > **Why is taking the sum of squared weights $\sum w^2$ necessary for calculating the statistical uncertainty on a weighted histogram bin, especially when generator weights can be negative?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*

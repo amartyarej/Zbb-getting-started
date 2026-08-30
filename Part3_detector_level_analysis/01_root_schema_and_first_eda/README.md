@@ -38,4 +38,4 @@ In experimental High-Energy Physics (HEP), collision events are stored in ROOT f
 
 > **What is the difference between a branch holding a reconstructed large-R jet mass (`largeRjet_m_NOSYS`) and a branch holding a truth-matched origin label (`largeRjet_truth_label`)?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*

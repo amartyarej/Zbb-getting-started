@@ -37,4 +37,4 @@ Introduced as a dependence measure designed to detect non-linear relationships:
 
 > **If mass and $p_T$ have a nonzero correlation, why does that not identify the physical mechanism causing it?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*

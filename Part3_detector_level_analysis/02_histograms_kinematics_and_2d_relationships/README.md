@@ -35,4 +35,4 @@
 
 > **Why should the y-axis label distinguish ‘events’, ‘weighted events’, and ‘normalized density’?**
 >
-> *(Note: Document your answer in your notebook or write-up. See `solutions/checkpoint_answers.md` for full solution.)*
+> *(Note: Document your answer in your notebook or write-up.)*
