@@ -94,7 +94,7 @@ def main():
             t80_per_mass.append(np.nan)
             
     fig, ax = plt.subplots(figsize=(7, 5))
-    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 0.2], [0, 250]], norm=LogNorm(), cmap='viridis')
+    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], norm=LogNorm(), cmap='viridis')
     ax.plot(t50_per_mass, mass_centers, color='orange', linestyle='--', linewidth=2, label='ParT 50% WP (mean per mass bin)')
     ax.plot(t80_per_mass, mass_centers, color='cyan', linestyle='--', linewidth=2, label='ParT 80% WP (mean per mass bin)')
     ax.set_xlabel("Standard ParT W-Tagger Score")
