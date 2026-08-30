@@ -71,8 +71,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_gn3x_raw.png", dpi=200)
-    print("Saved example plot to 'example_gn3x_raw.png'.")
+    plt.savefig("exercise6_step1_example_gn3x_raw.png", dpi=200)
+    print("Saved example plot to 'exercise6_step1_example_gn3x_raw.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 1
@@ -81,7 +81,7 @@ def main():
     # 1. Compute composite ratio discriminant: D_bb = P_hbb / (P_hbb + P_wqq + P_qcd_all).
     # 2. Extract D_bb for Zbb signal, Wqq background, and Dijet QCD background.
     # 3. Overlay the 1D D_bb score distributions for all 3 processes.
-    # 4. Save figure to 'exercise6_dbb_score.png'.
+    # 4. Save figure to 'exercise6_step1_dbb_score.png'.
     # ----------------------------------------------------
     # Write your code below:
     

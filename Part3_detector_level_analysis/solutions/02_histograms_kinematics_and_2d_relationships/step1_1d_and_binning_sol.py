@@ -71,8 +71,8 @@ def main():
     axes[1].grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("example_binning_comparison.png", dpi=200)
-    print("Saved example binning plot to 'example_binning_comparison.png'.")
+    plt.savefig("exercise2_step1_example_binning_comparison.png", dpi=200)
+    print("Saved example binning plot to 'exercise2_step1_example_binning_comparison.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 1
@@ -100,8 +100,8 @@ def main():
     axes[1].grid(True, which='both', linestyle='--', alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("exercise2_pt_logscale_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise2_pt_logscale_sol.png'.")
+    plt.savefig("exercise2_step1_pt_logscale_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise2_step1_pt_logscale_sol.png'.")
 
 if __name__ == "__main__":
     main()

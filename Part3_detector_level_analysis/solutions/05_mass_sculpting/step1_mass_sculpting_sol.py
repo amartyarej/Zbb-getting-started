@@ -73,8 +73,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_sculpting.png", dpi=200)
-    print("Saved example plot to 'example_sculpting.png'.")
+    plt.savefig("exercise5_step1_example_sculpting.png", dpi=200)
+    print("Saved example plot to 'exercise5_step1_example_sculpting.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 1
@@ -104,8 +104,8 @@ def main():
     axes[1].grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("exercise5_mass_sculpting_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise5_mass_sculpting_sol.png'.")
+    plt.savefig("exercise5_step1_mass_sculpting_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise5_step1_mass_sculpting_sol.png'.")
 
 if __name__ == "__main__":
     main()

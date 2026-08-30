@@ -52,15 +52,17 @@ def main():
     # ----------------------------------------------------
     # EXAMPLE: Computing Pearson Linear Correlation Coefficient
     # ----------------------------------------------------
-    r_pt_mass = np.corrcoef(pt, mass)[0, 1]
-    print(f"Pearson Correlation r(pT, Mass): {r_pt_mass:.4f}")
+    # Subsample size N=2000 chosen due to O(N^2) distance matrix memory/CPU scaling in dcor
+    n_calc = 10000
+    r_pt_mass = np.corrcoef(pt[:n_calc], mass[:n_calc])[0, 1]
+    print(f"Pearson Correlation r(pT, Mass) [N={n_calc}]: {r_pt_mass:.4f}")
 
     # ====================================================
     # TODO: EXERCISE TASK 1
     # ====================================================
     # Task Instructions:
-    # 1. Compute Distance Correlation dcor(pT, Mass) using compute_distance_correlation(pt[:2000], mass[:2000]).
-    # 2. Compute Distance Correlation dcor(Mass, ParT Score) using compute_distance_correlation(mass[:2000], score[:2000]).
+    # 1. Compute Distance Correlation dcor(pT, Mass) using compute_distance_correlation(pt[:n_calc], mass[:n_calc]).
+    # 2. Compute Distance Correlation dcor(Mass, ParT Score) using compute_distance_correlation(mass[:n_calc], score[:n_calc]).
     # 3. Print both distance correlation values alongside their Pearson correlation values.
     # 4. Explain why distance correlation is sensitive to non-linear relationships that Pearson misses!
     # ----------------------------------------------------

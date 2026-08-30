@@ -57,9 +57,11 @@ def main():
     # 2. Data type/shape: Float scalar in [-1, 1].
     # 3. HEP meaning: Measures linear association between reconstructed observables.
     # 4. Beginner mistake: Assuming r_XY = 0 proves zero dependence.
-    r_pt_mass = np.corrcoef(pt, mass)[0, 1]
-    r_mass_score = np.corrcoef(mass, score)[0, 1]
-    print(f"Pearson Correlation r(pT, Mass): {r_pt_mass:.4f}")
+    # Subsample size N=2000 chosen due to O(N^2) distance matrix memory/CPU scaling in dcor
+    n_calc = 10000
+    r_pt_mass = np.corrcoef(pt[:n_calc], mass[:n_calc])[0, 1]
+    r_mass_score = np.corrcoef(mass[:n_calc], score[:n_calc])[0, 1]
+    print(f"Pearson Correlation r(pT, Mass) [N={n_calc}]: {r_pt_mass:.4f}")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 1
@@ -69,11 +71,11 @@ def main():
     # 2. Data type/shape: Float scalar in [0, 1].
     # 3. HEP meaning: Detects non-linear dependencies missed by Pearson linear r_XY.
     # 4. Beginner mistake: Using distance correlation as a selection optimization statistic.
-    dcor_pt_mass = compute_distance_correlation(pt[:2000], mass[:2000])
-    dcor_mass_score = compute_distance_correlation(mass[:2000], score[:2000])
+    dcor_pt_mass = compute_distance_correlation(pt[:n_calc], mass[:n_calc])
+    dcor_mass_score = compute_distance_correlation(mass[:n_calc], score[:n_calc])
     
     print("=" * 60)
-    print("SOLUTION: Exercise 3 — Step 1: Distance Correlation")
+    print(f"SOLUTION: Exercise 3 — Step 1: Distance Correlation (N = {n_calc})")
     print("=" * 60)
     print(f"r(pT, Mass): {r_pt_mass:.4f} | dcor(pT, Mass): {dcor_pt_mass:.4f}")
     print(f"r(Mass, ParT Score): {r_mass_score:.4f} | dcor(Mass, Score): {dcor_mass_score:.4f}")

@@ -58,8 +58,8 @@ def main():
     ax.set_title("2D Diagnostic: Jet Mass vs Tagger Score")
     fig.colorbar(h2d[3], ax=ax, label="QCD Events")
     plt.tight_layout()
-    plt.savefig("example_2d_sculpting.png", dpi=200)
-    print("Saved 2D diagnostic plot to 'example_2d_sculpting.png'.")
+    plt.savefig("exercise5_step2_example_2d_sculpting.png", dpi=200)
+    print("Saved 2D diagnostic plot to 'exercise5_step2_example_2d_sculpting.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 2
@@ -68,7 +68,7 @@ def main():
     # 1. Calculate score quantile thresholds for 50th and 80th percentiles using np.percentile().
     # 2. Re-plot the 2D Mass vs. Score histogram.
     # 3. Add vertical dashed lines at the 50th and 80th percentile score values.
-    # 4. Save your figure to 'exercise5_2d_diagnostic.png'.
+    # 4. Save your figure to 'exercise5_step2_2d_diagnostic.png'.
     # ----------------------------------------------------
     # Write your code below:
     

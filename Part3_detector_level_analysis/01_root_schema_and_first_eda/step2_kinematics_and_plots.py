@@ -61,8 +61,8 @@ def main():
     ax.set_title("Actual Pileup in Z->bb sample")
     ax.grid(True, linestyle='--', alpha=0.5)
     plt.tight_layout()
-    plt.savefig("example_mu_distribution.png", dpi=200)
-    print("Saved example plot to 'example_mu_distribution.png'.")
+    plt.savefig("exercise1_step2_example_mu_distribution.png", dpi=200)
+    print("Saved example plot to 'exercise1_step2_example_mu_distribution.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 2
@@ -74,7 +74,7 @@ def main():
     #    - Panel 1: Pileup mu (range 10 to 70).
     #    - Panel 2: Large-R jet multiplicity (integer binning from 0 to 6).
     #    - Panel 3: Inclusive Large-R jet pT spectrum (range 200 to 1000 GeV, 40 bins).
-    # 4. Save your figure to 'exercise1_plots.png'.
+    # 4. Save your figure to 'exercise1_step2_plots.png'.
     # ----------------------------------------------------
     # Write your code below:
     

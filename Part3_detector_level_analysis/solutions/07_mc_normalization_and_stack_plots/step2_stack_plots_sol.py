@@ -81,8 +81,8 @@ def main():
     ax.legend(loc='upper right')
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_stack_plot.png", dpi=200)
-    print("Saved example stack plot to 'example_stack_plot.png'.")
+    plt.savefig("exercise7_step2_example_stack_plot.png", dpi=200)
+    print("Saved example stack plot to 'exercise7_step2_example_stack_plot.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 2
@@ -127,8 +127,8 @@ def main():
     ax.grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("exercise7_stack_plot_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise7_stack_plot_sol.png'.")
+    plt.savefig("exercise7_step2_stack_plot_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise7_step2_stack_plot_sol.png'.")
 
 if __name__ == "__main__":
     main()

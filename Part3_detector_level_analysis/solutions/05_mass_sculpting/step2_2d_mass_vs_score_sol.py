@@ -63,8 +63,8 @@ def main():
     ax.set_title("2D Diagnostic: Jet Mass vs Tagger Score")
     fig.colorbar(h2d[3], ax=ax, label="QCD Events")
     plt.tight_layout()
-    plt.savefig("example_2d_sculpting.png", dpi=200)
-    print("Saved 2D diagnostic plot to 'example_2d_sculpting.png'.")
+    plt.savefig("exercise5_step2_example_2d_sculpting.png", dpi=200)
+    print("Saved 2D diagnostic plot to 'exercise5_step2_example_2d_sculpting.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 2
@@ -88,8 +88,8 @@ def main():
     fig.colorbar(h2d[3], ax=ax, label="QCD Events")
     
     plt.tight_layout()
-    plt.savefig("exercise5_2d_diagnostic_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise5_2d_diagnostic_sol.png'.")
+    plt.savefig("exercise5_step2_2d_diagnostic_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise5_step2_2d_diagnostic_sol.png'.")
 
 if __name__ == "__main__":
     main()

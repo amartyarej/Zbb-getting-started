@@ -35,7 +35,7 @@ Squaring the weights ($w_{\rm norm, i}^2$) ensures that negative generator weigh
 
 ### Step 2: `step2_stack_plots.py`
 - **Example**: Accumulate binned weighted mass distributions across background processes ($QCD$, $Wqq$, $Zqq$) and signal ($Zbb$).
-- **Task**: Construct a stacked histogram plot using `ax.hist(..., stacked=True)` with statistical uncertainty error bands ($\sqrt{\sum w^2}$). Save your plot to `exercise7_stack_plot.png`.
+- **Task**: Construct a stacked histogram plot using `ax.hist(..., stacked=True)` with statistical uncertainty error bands ($\sqrt{\sum w^2}$). Save your plot to `exercise7_step2_stack_plot.png`.
 
 ---
 

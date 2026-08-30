@@ -66,8 +66,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_mass_cut_effect.png", dpi=200)
-    print("Saved example plot to 'example_mass_cut_effect.png'.")
+    plt.savefig("exercise2_step2_example_mass_cut_effect.png", dpi=200)
+    print("Saved example plot to 'exercise2_step2_example_mass_cut_effect.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 2
@@ -87,8 +87,8 @@ def main():
     fig.colorbar(h2d[3], ax=ax, label="Jet Candidates")
     
     plt.tight_layout()
-    plt.savefig("exercise2_2d_phase_space_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise2_2d_phase_space_sol.png'.")
+    plt.savefig("exercise2_step2_2d_phase_space_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise2_step2_2d_phase_space_sol.png'.")
 
 if __name__ == "__main__":
     main()

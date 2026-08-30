@@ -66,8 +66,8 @@ def main():
     axes[1].grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("example_binning_comparison.png", dpi=200)
-    print("Saved example binning plot to 'example_binning_comparison.png'.")
+    plt.savefig("exercise2_step1_example_binning_comparison.png", dpi=200)
+    print("Saved example binning plot to 'exercise2_step1_example_binning_comparison.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 1
@@ -78,7 +78,7 @@ def main():
     # 3. Create a 2-panel figure:
     #    - Panel 1: Linear y-axis scale.
     #    - Panel 2: Logarithmic y-axis scale (ax.set_yscale('log')).
-    # 4. Save your plot to 'exercise2_pt_logscale.png'.
+    # 4. Save your plot to 'exercise2_step1_pt_logscale.png'.
     # 5. Observe why the high-pT tail is visible only on the log scale!
     # ----------------------------------------------------
     # Write your code below:

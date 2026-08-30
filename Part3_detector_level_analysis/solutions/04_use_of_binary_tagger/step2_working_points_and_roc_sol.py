@@ -95,8 +95,8 @@ def main():
     plt.grid(True, which='both', linestyle='--', alpha=0.5)
     plt.legend()
     plt.tight_layout()
-    plt.savefig("exercise4_roc_curve_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise4_roc_curve_sol.png'.")
+    plt.savefig("exercise4_step2_roc_curve_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise4_step2_roc_curve_sol.png'.")
 
 if __name__ == "__main__":
     main()

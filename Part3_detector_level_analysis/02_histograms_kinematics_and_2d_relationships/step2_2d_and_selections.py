@@ -61,8 +61,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_mass_cut_effect.png", dpi=200)
-    print("Saved example plot to 'example_mass_cut_effect.png'.")
+    plt.savefig("exercise2_step2_example_mass_cut_effect.png", dpi=200)
+    print("Saved example plot to 'exercise2_step2_example_mass_cut_effect.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 2
@@ -72,7 +72,7 @@ def main():
     # 2. Set range to pT in [200, 800] GeV and Mass in [0, 300] GeV with [30, 30] bins.
     # 3. Add a vertical dashed line at pT = 250 GeV representing the selection cut boundary.
     # 4. Add a colorbar with label 'Jet Candidates'.
-    # 5. Save figure to 'exercise2_2d_phase_space.png'.
+    # 5. Save figure to 'exercise2_step2_2d_phase_space.png'.
     # ----------------------------------------------------
     # Write your code below:
     

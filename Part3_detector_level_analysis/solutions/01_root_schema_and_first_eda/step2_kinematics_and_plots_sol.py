@@ -61,8 +61,8 @@ def main():
     ax.set_title("Actual Pileup in Z->bb sample")
     ax.grid(True, linestyle='--', alpha=0.5)
     plt.tight_layout()
-    plt.savefig("example_mu_distribution.png", dpi=200)
-    print("Saved example plot to 'example_mu_distribution.png'.")
+    plt.savefig("exercise1_step2_example_mu_distribution.png", dpi=200)
+    print("Saved example plot to 'exercise1_step2_example_mu_distribution.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 2
@@ -99,8 +99,8 @@ def main():
     axes[2].grid(True, linestyle='--', alpha=0.5)
     
     plt.tight_layout()
-    plt.savefig("exercise1_plots_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise1_plots_sol.png'.")
+    plt.savefig("exercise1_step2_plots_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise1_step2_plots_sol.png'.")
 
 if __name__ == "__main__":
     main()

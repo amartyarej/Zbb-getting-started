@@ -68,8 +68,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_sculpting.png", dpi=200)
-    print("Saved example plot to 'example_sculpting.png'.")
+    plt.savefig("exercise5_step1_example_sculpting.png", dpi=200)
+    print("Saved example plot to 'exercise5_step1_example_sculpting.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 1
@@ -77,7 +77,7 @@ def main():
     # Task Instructions:
     # 1. Apply mass-decorrelated score cuts: cut_dec_80 = score_dec > np.percentile(score_dec, 80.0).
     # 2. Create a 2-panel figure comparing Standard Tagger mass sculpting vs. Mass-Decorrelated Tagger.
-    # 3. Add labels, legends, and save figure to 'exercise5_mass_sculpting.png'.
+    # 3. Add labels, legends, and save figure to 'exercise5_step1_mass_sculpting.png'.
     # ----------------------------------------------------
     # Write your code below:
     

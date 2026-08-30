@@ -76,7 +76,7 @@ def main():
     # 1. Scan tagger thresholds from 0 to 1 with 100 steps: thresholds = np.linspace(0, 1, 100).
     # 2. Compute signal efficiency list eff_sig_list and background mistag rate list mistag_bkg_list.
     # 3. Plot ROC curve: Signal Efficiency (x-axis) vs. Background Rejection 1 / mistag_bkg (y-axis, log scale).
-    # 4. Save figure to 'exercise4_roc_curve.png'.
+    # 4. Save figure to 'exercise4_step2_roc_curve.png'.
     # ----------------------------------------------------
     # Write your code below:
     

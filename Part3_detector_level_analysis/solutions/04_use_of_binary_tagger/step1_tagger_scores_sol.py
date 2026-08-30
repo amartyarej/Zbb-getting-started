@@ -80,8 +80,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_ann_score.png", dpi=200)
-    print("Saved example score plot to 'example_ann_score.png'.")
+    plt.savefig("exercise4_step1_example_ann_score.png", dpi=200)
+    print("Saved example score plot to 'exercise4_step1_example_ann_score.png'.")
 
     # ====================================================
     # SOLUTION: EXERCISE TASK 1
@@ -110,8 +110,8 @@ def main():
     axes[1].grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("exercise4_scores_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise4_scores_sol.png'.")
+    plt.savefig("exercise4_step1_scores_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise4_step1_scores_sol.png'.")
 
 if __name__ == "__main__":
     main()

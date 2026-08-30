@@ -71,8 +71,8 @@ def main():
     ax.legend()
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_ann_score.png", dpi=200)
-    print("Saved example score plot to 'example_ann_score.png'.")
+    plt.savefig("exercise4_step1_example_ann_score.png", dpi=200)
+    print("Saved example score plot to 'exercise4_step1_example_ann_score.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 1
@@ -80,7 +80,7 @@ def main():
     # Task Instructions:
     # 1. Extract ParT W mass-decorrelated score 'largeRjet_ParT_W_massDec_score' for Wqq and QCD.
     # 2. Create a 2-panel figure comparing ANN W-tagger score vs ParT W-MassDec tagger score.
-    # 3. Add proper labels, titles, legends, and save to 'exercise4_scores.png'.
+    # 3. Add proper labels, titles, legends, and save to 'exercise4_step1_scores.png'.
     # ----------------------------------------------------
     # Write your code below:
     

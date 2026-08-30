@@ -76,8 +76,8 @@ def main():
     ax.legend(loc='upper right')
     ax.grid(True, alpha=0.4)
     plt.tight_layout()
-    plt.savefig("example_stack_plot.png", dpi=200)
-    print("Saved example stack plot to 'example_stack_plot.png'.")
+    plt.savefig("exercise7_step2_example_stack_plot.png", dpi=200)
+    print("Saved example stack plot to 'exercise7_step2_example_stack_plot.png'.")
 
     # ====================================================
     # TODO: EXERCISE TASK 2
@@ -87,7 +87,7 @@ def main():
     #    - Loop over processes and accumulate sum of squared weights: sum_w2, _ = np.histogram(m, bins=bins, weights=w**2).
     #    - Calculate total_stat_err = np.sqrt(total_var).
     # 2. Overlay statistical uncertainty band using ax.bar() with hatch='///' and alpha=0.5.
-    # 3. Save your figure to 'exercise7_stack_plot.png'.
+    # 3. Save your figure to 'exercise7_step2_stack_plot.png'.
     # ----------------------------------------------------
     # Write your code below:
     
