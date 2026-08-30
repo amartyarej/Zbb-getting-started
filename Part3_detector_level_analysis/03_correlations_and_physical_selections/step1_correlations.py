@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+"""
+Exercise 3 — Step 1: Pearson Matrix & Non-Linear Distance Correlation (OPTIONAL)
+Part 3 Detector-Level Analysis Tutorial
+"""
+
+import os
+import sys
+import numpy as np
+import uproot
+import awkward as ak
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from helpers import load_metadata, compute_distance_correlation
+
+def main():
+    metadata = load_metadata()
+    file_path = metadata["samples"]["Zbb"]["file_path"]
+    
+    if not os.path.exists(file_path):
+        print(f"[Note]: ROOT file {file_path} is not accessible locally.")
+        return
+        
+    tree = uproot.open(file_path)["reco"]
+    events = tree.arrays([
+        "largeRjet_pt_NOSYS", "largeRjet_m_NOSYS",
+        "largeRjet_Tau1_wta", "largeRjet_Tau2_wta",
+        "largeRjet_ParT_W_massDec_score", "actualInteractionsPerCrossing"
+    ], entry_stop=15000)
+    
+    pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
+    mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))
+    score = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_massDec_score"]), np.nan))
+    
+    valid = ~np.isnan(pt) & ~np.isnan(mass) & ~np.isnan(score)
+    pt, mass, score = pt[valid], mass[valid], score[valid]
+    
+    # ----------------------------------------------------
+    # EXAMPLE: Computing Pearson Linear Correlation Coefficient
+    # ----------------------------------------------------
+    r_pt_mass = np.corrcoef(pt, mass)[0, 1]
+    print(f"Pearson Correlation r(pT, Mass): {r_pt_mass:.4f}")
+
+    # ====================================================
+    # TODO: EXERCISE TASK 1
+    # ====================================================
+    # Task Instructions:
+    # 1. Compute Distance Correlation dcor(pT, Mass) using compute_distance_correlation(pt[:2000], mass[:2000]).
+    # 2. Compute Distance Correlation dcor(Mass, ParT Score) using compute_distance_correlation(mass[:2000], score[:2000]).
+    # 3. Print both distance correlation values alongside their Pearson correlation values.
+    # 4. Explain why distance correlation is sensitive to non-linear relationships that Pearson misses!
+    # ----------------------------------------------------
+    # Write your code below:
+    
+    # TODO: Compute and print distance correlations vs Pearson r
+
+if __name__ == "__main__":
+    main()

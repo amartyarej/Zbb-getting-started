@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""
+Solution: Exercise 6 — Step 2: Multi-Class Efficiency Grid Evaluation
+Part 3 Detector-Level Analysis Tutorial
+"""
+
+import os
+import sys
+import numpy as np
+import uproot
+import awkward as ak
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from helpers import load_metadata
+
+def main():
+    metadata = load_metadata()
+    zbb_path = metadata["samples"]["Zbb"]["file_path"]
+    wqq_path = metadata["samples"]["Wqq"]["file_path"]
+    qcd_path = metadata["samples"]["Dijet_JZ4"]["file_path"]
+    
+    if not (os.path.exists(zbb_path) and os.path.exists(wqq_path) and os.path.exists(qcd_path)):
+        print("[Note]: ROOT files not available locally.")
+        return
+        
+    branches = [
+        "largeRjet_pt_NOSYS", "largeRjet_GN3X_phbb", "largeRjet_GN3X_pWqq",
+        "largeRjet_GN3X_pQCDbb", "largeRjet_GN3X_pQCDbx", "largeRjet_GN3X_pQCDcx", "largeRjet_GN3X_pQCDll"
+    ]
+    
+    def get_dbb(fpath):
+        events = uproot.open(fpath)["reco"].arrays(branches, entry_stop=15000)
+        hbb = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_phbb"]), 0.0))
+        wqq = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pWqq"]), 0.0))
+        qcd = (ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDbb"]), 0.0)) +
+               ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDbx"]), 0.0)) +
+               ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDcx"]), 0.0)) +
+               ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDll"]), 0.0)))
+        denom = hbb + wqq + qcd
+        return np.where(denom > 0, hbb / denom, 0.0)
+
+    dbb_zbb = get_dbb(zbb_path)
+    
+    # ----------------------------------------------------
+    # EXAMPLE: Evaluating Zbb Signal Selection Efficiency
+    # ----------------------------------------------------
+    # Explanation:
+    # 1. What code does: Applies D_bb > 0.60 cut to evaluate signal selection efficiency.
+    # 2. Data type/shape: Float efficiency fraction.
+    # 3. HEP meaning: Fraction of Zbb signal events passing the tagger selection threshold.
+    # 4. Beginner mistake: Evaluating efficiency without applying identical cuts to background samples.
+    thresh = 0.60
+    eff_zbb = np.mean(dbb_zbb > thresh)
+    print(f"Working Point Cut: D_bb > {thresh:.2f}")
+    print(f"Z -> bb Selection Efficiency: {eff_zbb * 100:.2f}%")
+
+    # ====================================================
+    # SOLUTION: EXERCISE TASK 2
+    # ====================================================
+    # Explanation:
+    # 1. What code does: Computes D_bb scores and mistag rates for Wqq and QCD samples.
+    # 2. Data type/shape: Summary performance table.
+    # 3. HEP meaning: Multi-class efficiency grid measures signal retention vs rejection of specific background channels.
+    # 4. Beginner mistake: Grouping all background types together into a single efficiency number.
+    dbb_wqq = get_dbb(wqq_path)
+    dbb_qcd = get_dbb(qcd_path)
+    
+    print("=" * 60)
+    print("SOLUTION: Exercise 6 — Step 2: Efficiency Grid Table")
+    print("=" * 60)
+    print(f"Working Point Cut: D_bb > {thresh:.2f}")
+    print(f"Z->bb Selection Efficiency:  {np.mean(dbb_zbb > thresh)*100:.2f}%")
+    print(f"W->qq Rejection (Mistag):    {np.mean(dbb_wqq > thresh)*100:.2f}%")
+    print(f"QCD Rejection (Mistag):     {np.mean(dbb_qcd > thresh)*100:.2f}%")
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,93 @@
+{
+  "tree_name": "reco",
+  "event_level_branches": {
+    "eventNumber": "ULong64_t - Unique event identifier",
+    "mcChannelNumber": "UInt_t - Monte Carlo process channel ID",
+    "runNumber": "UInt_t - Run number",
+    "actualInteractionsPerCrossing": "Float_t - Actual pileup parameter mu",
+    "averageInteractionsPerCrossing": "Float_t - Average pileup parameter mu",
+    "weight_mc_NOSYS": "Float_t - Generator event weight",
+    "weight_pileup_NOSYS": "Float_t - Pileup reweighting scale factor",
+    "weight_beamspot": "Float_t - Beamspot correction scale factor",
+    "weight_jvt_effSF_NOSYS": "Float_t - JVT efficiency SF (small-R jets only)"
+  },
+  "small_R_jet_branches": {
+    "jet_pt_NOSYS": "vector<float> - Small-R (R=0.4) jet transverse momentum",
+    "jet_eta": "vector<float> - Small-R jet pseudorapidity",
+    "jet_phi": "vector<float> - Small-R jet azimuthal angle",
+    "jet_e_NOSYS": "vector<float> - Small-R jet energy"
+  },
+  "large_R_jet_branches": {
+    "largeRjet_pt_NOSYS": "vector<float> - Large-R (R=1.0) jet transverse momentum (MeV)",
+    "largeRjet_eta": "vector<float> - Large-R jet pseudorapidity",
+    "largeRjet_phi": "vector<float> - Large-R jet azimuthal angle",
+    "largeRjet_m_NOSYS": "vector<float> - Large-R jet invariant mass (MeV)"
+  },
+  "substructure_branches": {
+    "largeRjet_Angularity": "vector<float> - Angularity substructure shape variable",
+    "largeRjet_Aplanarity": "vector<float> - Aplanarity event shape variable",
+    "largeRjet_ECF1": "vector<float> - Energy Correlation Function 1",
+    "largeRjet_ECF2": "vector<float> - Energy Correlation Function 2",
+    "largeRjet_ECF3": "vector<float> - Energy Correlation Function 3",
+    "largeRjet_FoxWolfram0": "vector<float> - 0th order Fox-Wolfram moment",
+    "largeRjet_FoxWolfram2": "vector<float> - 2nd order Fox-Wolfram moment",
+    "largeRjet_KtDR": "vector<float> - kT distance parameter",
+    "largeRjet_PlanarFlow": "vector<float> - Planar flow jet shape",
+    "largeRjet_Qw": "vector<float> - Qw mass scale variable",
+    "largeRjet_Split12": "vector<float> - 1->2 splitting scale",
+    "largeRjet_Split23": "vector<float> - 2->3 splitting scale",
+    "largeRjet_Tau1_wta": "vector<float> - N-subjettiness 1-prong WTA axis",
+    "largeRjet_Tau2_wta": "vector<float> - N-subjettiness 2-prong WTA axis",
+    "largeRjet_Tau3_wta": "vector<float> - N-subjettiness 3-prong WTA axis",
+    "largeRjet_ZCut12": "vector<float> - Z-cut splitting scale"
+  },
+  "truth_label_branch": {
+    "largeRjet_truth_label": "vector<int> - Truth-matched origin classification ID"
+  },
+  "trigger_branches": {
+    "trigPassed_HLT_j360_a10_L1J100": "Bool_t - Large-R jet trigger 360 GeV",
+    "trigPassed_HLT_j360_a10_lcw_L1J100": "Bool_t - Large-R jet trigger 360 GeV LCW",
+    "trigPassed_HLT_j360_a10_lcw_sub_L1J100": "Bool_t - Large-R jet trigger 360 GeV LCW sub",
+    "trigPassed_HLT_j360_a10_sub_L1J100": "Bool_t - Large-R jet trigger 360 GeV sub",
+    "trigPassed_HLT_j360_a10r_L1J100": "Bool_t - Large-R jet trigger 360 GeV re-clustered",
+    "trigPassed_HLT_j400_a10_lcw_L1J100": "Bool_t - Large-R jet trigger 400 GeV LCW",
+    "trigPassed_HLT_j400_a10_lcw_sub_L1J100": "Bool_t - Large-R jet trigger 400 GeV LCW sub",
+    "trigPassed_HLT_j400_a10_sub_L1J100": "Bool_t - Large-R jet trigger 400 GeV sub",
+    "trigPassed_HLT_j400_a10r_L1J100": "Bool_t - Large-R jet trigger 400 GeV re-clustered",
+    "trigPassed_HLT_j420_a10_lcw_L1J100": "Bool_t - Large-R jet trigger 420 GeV LCW",
+    "trigPassed_HLT_j420_a10_lcw_sub_L1J100": "Bool_t - Large-R jet trigger 420 GeV LCW sub",
+    "trigPassed_HLT_j420_a10_lcw_subjes_L1J100": "Bool_t - Large-R jet trigger 420 GeV LCW sub-JES",
+    "trigPassed_HLT_j420_a10_sub_L1J100": "Bool_t - Large-R jet trigger 420 GeV sub",
+    "trigPassed_HLT_j420_a10r_L1J100": "Bool_t - Large-R jet trigger 420 GeV re-clustered",
+    "trigPassed_HLT_j420_a10t_lcw_jes_L1J100": "Bool_t - Large-R jet trigger 420 GeV trim-JES",
+    "trigPassed_HLT_j440_a10_lcw_sub_L1J100": "Bool_t - Large-R jet trigger 440 GeV LCW sub",
+    "trigPassed_HLT_j440_a10_lcw_subjes_L1J100": "Bool_t - Large-R jet trigger 440 GeV LCW sub-JES",
+    "trigPassed_HLT_j440_a10_sub_L1J100": "Bool_t - Large-R jet trigger 440 GeV sub",
+    "trigPassed_HLT_j440_a10r_L1J100": "Bool_t - Large-R jet trigger 440 GeV re-clustered",
+    "trigPassed_HLT_j440_a10t_lcw_jes_L1J100": "Bool_t - Large-R jet trigger 440 GeV trim-JES",
+    "trigPassed_HLT_j460_a10_lcw_subjes_L1J100": "Bool_t - Large-R jet trigger 460 GeV LCW sub-JES",
+    "trigPassed_HLT_j460_a10r_L1J100": "Bool_t - Large-R jet trigger 460 GeV re-clustered",
+    "trigPassed_HLT_j460_a10t_lcw_jes_L1J100": "Bool_t - Large-R jet trigger 460 GeV trim-JES",
+    "trigPassed_HLT_j480_a10_lcw_subjes_L1J100": "Bool_t - Large-R jet trigger 480 GeV LCW sub-JES",
+    "trigPassed_HLT_j480_a10r_L1J100": "Bool_t - Large-R jet trigger 480 GeV re-clustered",
+    "trigPassed_HLT_j480_a10t_lcw_jes_L1J100": "Bool_t - Large-R jet trigger 480 GeV trim-JES"
+  },
+  "binary_tagger_branches": {
+    "largeRjet_ParT_W_score": "vector<float> - ParT binary W-vs-QCD score (not mass decorrelated)",
+    "largeRjet_ParT_W_massDec_score": "vector<float> - ParT binary W-vs-QCD score (mass decorrelated)",
+    "largeRjet_ANN50Tagger_score_NOSYS": "vector<float> - ANN binary W-vs-QCD score (mass decorrelated)",
+    "largeRjet_ANN50Tagger_tagged_NOSYS": "vector<int> - ANN 50% WP pass/fail decision (1/0)",
+    "largeRjet_ANN80Tagger_tagged_NOSYS": "vector<int> - ANN 80% WP pass/fail decision (1/0)"
+  },
+  "multiclass_tagger_branches": {
+    "largeRjet_GN3X_phbb": "vector<float> - GN3X score for H->bb origin (used as Zbb signal)",
+    "largeRjet_GN3X_pWqq": "vector<float> - GN3X score for W->qq origin (used as Wqq/Zqq signal)",
+    "largeRjet_GN3X_pQCDbb": "vector<float> - GN3X score for QCD bb-like background",
+    "largeRjet_GN3X_pQCDbx": "vector<float> - GN3X score for QCD bx-like background",
+    "largeRjet_GN3X_pQCDcx": "vector<float> - GN3X score for QCD cx-like background",
+    "largeRjet_GN3X_pQCDll": "vector<float> - GN3X score for QCD light-flavour background",
+    "largeRjet_GN3X_pTop": "vector<float> - GN3X score for top-quark origin",
+    "largeRjet_GN3X_phcc": "vector<float> - GN3X score for H->cc origin",
+    "largeRjet_GN3X_phtautauhad": "vector<float> - GN3X score for H->tautau (hadronic) origin"
+  }
+}

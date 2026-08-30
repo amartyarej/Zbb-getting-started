@@ -1,0 +1,119 @@
+{
+  "target_luminosity_fb": 44.0,
+  "samples": {
+    "Zbb": {
+      "process_name": "Z -> bb + jets MC",
+      "file_path": "/eos/atlas/atlascerngroupdisk/perf-jets/TAGGING/WTopBackgroundSFRel21/UFO_test/ntuples_BkgSFR22_Amartya/ntuples_p7018/commonJetTrig/user.arej.700855.Sh.DAOD_PHYS.e8536_s3681_r13145_p7018.040626_jettrig-v1_output/user.arej.50673236._000003.output.root",
+      "entries": 2469731,
+      "sum_of_weights": 1323537000000.0,
+      "xsec_nb": 0.013354,
+      "xsec_pb": 13.354
+    },
+    "Zqq": {
+      "process_name": "Z -> qq + jets MC",
+      "file_path": "/eos/atlas/atlascerngroupdisk/perf-jets/TAGGING/WTopBackgroundSFRel21/UFO_test/ntuples_BkgSFR22_Amartya/ntuples_p7018/commonJetTrig/user.arej.700849.Sh.DAOD_PHYS.e8536_s3681_r13145_p7018.040626_jettrig-v1_output/user.arej.50673237._000002.output.root",
+      "entries": 808586,
+      "sum_of_weights": 1420229900000.0,
+      "xsec_nb": 0.047467,
+      "xsec_pb": 47.467
+    },
+    "Wqq": {
+      "process_name": "W -> qq + jets MC",
+      "file_path": "/eos/atlas/atlascerngroupdisk/perf-jets/TAGGING/WTopBackgroundSFRel21/UFO_test/ntuples_BkgSFR22_Amartya/ntuples_p7018/commonJetTrig/user.arej.700843.Sh.DAOD_PHYS.e8536_s3681_r13145_p7018.040626_jettrig-v1_output/user.arej.50673231._000004.output.root",
+      "entries": 908558,
+      "sum_of_weights": 5996341600000.0,
+      "xsec_nb": 0.14321,
+      "xsec_pb": 143.21
+    },
+    "Dijet_JZ4": {
+      "process_name": "Dijet QCD JZ4 MC",
+      "file_path": "/eos/atlas/atlascerngroupdisk/perf-jets/TAGGING/WTopBackgroundSFRel21/UFO_test/ntuples_BkgSFR22_Amartya/ntuples_p7018/commonJetTrig/user.faarodri.364704.Pythia8EvtGen.DAOD_PHYS.e7142_s3681_r13145_p7018.042826-v1_output/user.faarodri.49996793._000009.output.root",
+      "entries": 7496601,
+      "sum_of_weights": 2.225111,
+      "xsec_nb": 3.40311726,
+      "xsec_pb": 3403.11726
+    }
+  },
+  "truth_label_dict": {
+    "0": {
+      "name": "untagged",
+      "description": "Not tagged yet"
+    },
+    "1": {
+      "name": "tqqb",
+      "description": "fully-contained top->qqb"
+    },
+    "2": {
+      "name": "Wqq",
+      "description": "fully-contained W->qq"
+    },
+    "3": {
+      "name": "Zbb",
+      "description": "fully-contained Z->bb"
+    },
+    "4": {
+      "name": "Zcc",
+      "description": "fully-contained Z->cc"
+    },
+    "5": {
+      "name": "Zqq",
+      "description": "fully-contained Z->qq"
+    },
+    "6": {
+      "name": "Wqq_From_t",
+      "description": "fully-contained W->qq (also matched to top)"
+    },
+    "7": {
+      "name": "other_From_t",
+      "description": "matched to top"
+    },
+    "8": {
+      "name": "other_From_V",
+      "description": "matched to W/Z"
+    },
+    "9": {
+      "name": "notruth",
+      "description": "failed to truth-jet matching (pileup)"
+    },
+    "10": {
+      "name": "qcd",
+      "description": "not matched to top or W/Z (background jet)"
+    },
+    "11": {
+      "name": "Hbb",
+      "description": "fully-contained H->bb"
+    },
+    "12": {
+      "name": "Hcc",
+      "description": "fully-contained H->cc"
+    },
+    "13": {
+      "name": "other_From_H",
+      "description": "matched to H"
+    },
+    "14": {
+      "name": "HtautauEl",
+      "description": "fully-contained H->tautau, el"
+    },
+    "15": {
+      "name": "HtautauMu",
+      "description": "fully-contained H->tautau, mu"
+    },
+    "16": {
+      "name": "HtautauHad",
+      "description": "fully-contained H->tautau, had"
+    },
+    "17": {
+      "name": "ZtautauEl",
+      "description": "fully-contained Z->tautau, el"
+    },
+    "18": {
+      "name": "ZtautauMu",
+      "description": "fully-contained Z->tautau, mu"
+    },
+    "19": {
+      "name": "ZtautauHad",
+      "description": "fully-contained Z->tautau, had"
+    }
+  }
+}
