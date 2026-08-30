@@ -16,7 +16,7 @@
 
 ### 2. Composite Ratio Discriminants
 Constructing probability ratio discriminants isolates target signal hypotheses:
-$$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}$$
+$$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}, \quad D_{qq} = \frac{P_{Wqq}}{P_{Wqq} + P_{\rm QCD\_all}}$$
 
 ---
 

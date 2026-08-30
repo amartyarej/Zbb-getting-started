@@ -53,9 +53,20 @@ def main():
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDbx"]), 0.0)) +
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDcx"]), 0.0)) +
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDll"]), 0.0)))
-        denom = hbb + wqq + qcd
-        dbb = np.where(denom > 0, hbb / denom, 0.0)
-        dqq = np.where(denom > 0, wqq / denom, 0.0)
+        # ----------------------------------------------------
+        # Ratio Discriminants Calculation with Zero-Division Protection
+        # ----------------------------------------------------
+        # Explanation:
+        # 1. What code does: Computes composite D_bb = P_hbb / (P_hbb + P_wqq + P_qcd) and two-class D_qq = P_wqq / (P_wqq + P_qcd).
+        # 2. Data type/shape: Pair of 1D NumPy float arrays bounded in [0, 1].
+        # 3. HEP meaning: D_bb separates b-quark jets from light/charm and QCD, while D_qq isolates light-quark W/Z decays directly against QCD background.
+        # 4. Common pitfall: Division by zero when probability sums equal zero (safely handled using np.where).
+        denom_bb = hbb + wqq + qcd
+        dbb = np.where(denom_bb > 0, hbb / denom_bb, 0.0)
+        
+        denom_qq = wqq + qcd
+        dqq = np.where(denom_qq > 0, wqq / denom_qq, 0.0)
+        
         return dbb, dqq
 
     dbb_zbb, dqq_zbb = get_discriminants(zbb_path)
@@ -66,7 +77,7 @@ def main():
     # EXAMPLE: 2D Histogram of D_bb vs D_qq for Zbb Signal
     # ----------------------------------------------------
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
+    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
     ax.set_xlabel(r"GN3X $D_{bb}$ Score")
     ax.set_ylabel(r"GN3X $D_{qq}$ Score")
     ax.set_title(r"2D Discriminant Plane ($Z\to b\bar{b}$ MC)")
@@ -80,7 +91,7 @@ def main():
     # ====================================================
     # Task Instructions:
     # 1. Create a 3-panel figure comparing 2D histograms of (D_bb vs D_qq) across Zbb signal, Wqq background, and QCD background.
-    # 2. Use range=[[0, 1], [0, 1]], norm=LogNorm(), and cmap='viridis' for each panel.
+    # 2. Use range=[[0, 1], [0, 1]] and cmap='viridis' for each panel.
     # 3. Set proper axis labels (D_bb on x-axis, D_qq on y-axis), panel titles, and add colorbars.
     # 4. Save your figure to 'exercise6_step3_2d_discriminants.png'.
     # ----------------------------------------------------

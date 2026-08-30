@@ -53,9 +53,20 @@ def main():
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDbx"]), 0.0)) +
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDcx"]), 0.0)) +
                ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDll"]), 0.0)))
-        denom = hbb + wqq + qcd
-        dbb = np.where(denom > 0, hbb / denom, 0.0)
-        dqq = np.where(denom > 0, wqq / denom, 0.0)
+        # ----------------------------------------------------
+        # Ratio Discriminants Calculation with Zero-Division Protection
+        # ----------------------------------------------------
+        # Explanation:
+        # 1. What code does: Computes composite D_bb = P_hbb / (P_hbb + P_wqq + P_qcd) and two-class D_qq = P_wqq / (P_wqq + P_qcd).
+        # 2. Data type/shape: Pair of 1D NumPy float arrays bounded in [0, 1].
+        # 3. HEP meaning: D_bb separates b-quark jets from light/charm and QCD, while D_qq isolates light-quark W/Z decays directly against QCD background.
+        # 4. Common pitfall: Division by zero when probability sums equal zero (safely handled using np.where).
+        denom_bb = hbb + wqq + qcd
+        dbb = np.where(denom_bb > 0, hbb / denom_bb, 0.0)
+        
+        denom_qq = wqq + qcd
+        dqq = np.where(denom_qq > 0, wqq / denom_qq, 0.0)
+        
         return dbb, dqq
 
     dbb_zbb, dqq_zbb = get_discriminants(zbb_path)
@@ -69,9 +80,8 @@ def main():
     # 1. What code does: Plots 2D density histogram of D_bb vs D_qq for Zbb signal events.
     # 2. Data type/shape: Matplotlib 2D histogram.
     # 3. HEP meaning: Demonstrates high D_bb and low D_qq clustering for Zbb signal.
-    # 4. Beginner mistake: Omitting logarithmic scaling on colorbar.
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
+    h2d = ax.hist2d(dbb_zbb, dqq_zbb, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
     ax.set_xlabel(r"GN3X $D_{bb}$ Score")
     ax.set_ylabel(r"GN3X $D_{qq}$ Score")
     ax.set_title(r"2D Discriminant Plane ($Z\to b\bar{b}$ MC)")
@@ -97,7 +107,7 @@ def main():
     ]
     
     for ax_i, (dbb_i, dqq_i, title_i) in zip(axes, samples_data):
-        h2d = ax_i.hist2d(dbb_i, dqq_i, bins=[30, 30], range=[[0, 1], [0, 1]], norm=LogNorm(), cmap='viridis')
+        h2d = ax_i.hist2d(dbb_i, dqq_i, bins=[30, 30], range=[[0, 1], [0, 1]], cmap='viridis')
         ax_i.set_xlabel(r"GN3X $D_{bb}$ Score")
         ax_i.set_ylabel(r"GN3X $D_{qq}$ Score")
         ax_i.set_title(title_i)
