@@ -68,12 +68,12 @@ def main():
     # ====================================================
     # Task Instructions:
     # 1. Compute D_bb scores for Wqq background and QCD background.
-    # 2. Evaluate selection efficiency (mistag rate) on Wqq and QCD at D_bb > 0.60 threshold.
-    # 3. Print a summary table listing Zbb signal efficiency alongside Wqq and QCD background mistag rates!
+    # 2. Evaluate selection efficiency (mistag rate in %) and rejection factor (1 / mistag as a unitless number) for Wqq and QCD at D_bb > 0.60 threshold.
+    # 3. Print a summary table listing Zbb signal efficiency (%), Wqq & QCD mistag rates (%), and Wqq & QCD rejection factors!
     # ----------------------------------------------------
     # Write your code below:
     
-    # TODO: Compute Wqq and QCD mistag rates and print summary table
+    # TODO: Compute Wqq and QCD mistag rates (%) and rejection factors (number), then print summary table
 
 if __name__ == "__main__":
     main()

@@ -72,20 +72,27 @@ def main():
     # SOLUTION: EXERCISE TASK 2
     # ====================================================
     # Explanation:
-    # 1. What code does: Computes D_bb scores and mistag rates for Wqq and QCD samples.
+    # 1. What code does: Computes D_bb scores, background mistag rates (in %), and rejection factors (as unitless numbers) for Wqq and QCD samples.
     # 2. Data type/shape: Summary performance table.
-    # 3. HEP meaning: Process-dependent selection evaluation measures signal retention vs rejection of specific background channels.
-    # 4. Beginner mistake: Grouping all background types together into a single efficiency number.
+    # 3. HEP meaning: Process-dependent selection evaluation measures signal retention (%) vs background rejection factor (1 / mistag).
+    # 4. Beginner mistake: Mixing up mistag rate (%) with background rejection (unitless number 1 / mistag).
     dbb_wqq = get_dbb(wqq_path)
     dbb_qcd = get_dbb(qcd_path)
     
+    mistag_wqq = np.mean(dbb_wqq > thresh)
+    mistag_qcd = np.mean(dbb_qcd > thresh)
+    rej_wqq = 1.0 / mistag_wqq if mistag_wqq > 0 else np.nan
+    rej_qcd = 1.0 / mistag_qcd if mistag_qcd > 0 else np.nan
+    
     print("=" * 60)
-    print("SOLUTION: Exercise 6 — Step 2: Selection Efficiency & Mistag Summary Table")
+    print("SOLUTION: Exercise 6 — Step 2: Selection Efficiency & Rejection Summary")
     print("=" * 60)
     print(f"Working Point Cut: D_bb > {thresh:.2f}")
-    print(f"Z->bb Selection Efficiency:  {np.mean(dbb_zbb > thresh)*100:.2f}%")
-    print(f"W->qq Rejection (Mistag):    {np.mean(dbb_wqq > thresh)*100:.2f}%")
-    print(f"QCD Rejection (Mistag):     {np.mean(dbb_qcd > thresh)*100:.2f}%")
+    print(f"Z->bb Signal Efficiency:     {np.mean(dbb_zbb > thresh)*100:.2f}%")
+    print(f"W->qq Background Mistag Rate: {mistag_wqq * 100:.2f}%")
+    print(f"W->qq Background Rejection:   {rej_wqq:.1f}")
+    print(f"QCD Background Mistag Rate:  {mistag_qcd * 100:.2f}%")
+    print(f"QCD Background Rejection:     {rej_qcd:.1f}")
 
 if __name__ == "__main__":
     main()

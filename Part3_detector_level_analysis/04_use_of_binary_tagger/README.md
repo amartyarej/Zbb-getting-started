@@ -13,8 +13,9 @@
 
 ### 2. Working Points (WPs) & Performance Metrics
 - **Scalar Cut / WP**: Converts continuous score into a binary pass/fail selection decision ($y > y_{\rm cut}$).
-- **Signal Efficiency ($\epsilon_{\rm sig}$)**: Fraction of true signal jets ($W\to qq$) passing the tagger threshold.
-- **Background Mistag Rate ($\epsilon_{\rm bkg}$)**: Fraction of background jets (QCD dijets) incorrectly passing the threshold.
+- **Signal Efficiency ($\epsilon_{\rm sig}$)**: Fraction of true signal jets ($W\to qq$) passing the tagger threshold (expressed in percent `[%]`).
+- **Background Mistag Rate ($\epsilon_{\rm bkg}$)**: Fraction of background jets (QCD dijets) incorrectly passing the threshold (expressed in percent `[%]`).
+- **Background Rejection ($R_{\text{bkg}}$)**: Inverse background mistag rate $1/\epsilon_{\text{bkg}}$ (a dimensionless unitless number).
 - **Functional WPs**: Dynamic $p_T$-dependent polynomial thresholds (e.g. `ParT_W_50_NOSYS`, `ParT_W_80_NOSYS`, mass-decorrelated variants) designed to maintain flat 50% or 80% signal efficiency across $p_T$.
 
 ---
@@ -27,7 +28,7 @@
 
 ### Step 2: `step2_working_points_and_roc.py`
 - **Example**: Evaluate ParT functional working point (`ParT_W_50_MassDec_NOSYS`) using `helpers.eval_part_wp()`.
-- **Task**: Calculate signal efficiency $\epsilon_{\rm sig}$ and background mistag rate $\epsilon_{\rm bkg}$. Plot ROC curve ($\epsilon_{\rm sig}$ vs. $1 / \epsilon_{\rm bkg}$).
+- **Task**: Calculate signal efficiency $\epsilon_{\rm sig}$ (in %), background mistag rate $\epsilon_{\rm bkg}$ (in %), and background rejection $1/\epsilon_{\rm bkg}$ (as a unitless number). Plot ROC curve ($\epsilon_{\rm sig}$ vs. $1 / \epsilon_{\rm bkg}$).
 
 ---
 

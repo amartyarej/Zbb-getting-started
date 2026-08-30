@@ -27,8 +27,8 @@ $$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}$$
 - **Task**: Compute composite ratio discriminant $D_{bb}$ for $Z\to b\bar{b}$ signal MC vs. $W\to q\bar{q}$ and QCD background samples. Overlay 1D $D_{bb}$ score distributions.
 
 ### Step 2: `step2_performance_grid.py`
-- **Example**: Compute $D_{bb} > 0.60$ selection efficiency on $Z\to b\bar{b}$ signal MC.
-- **Task**: Evaluate mistag rates on $W\to q\bar{q}$ MC and QCD background MC. Print a selection efficiency table comparing $Z\to b\bar{b}$ signal efficiency against $W\to q\bar{q}$ and QCD background mistag rates.
+- **Example**: Compute $D_{bb} > 0.60$ selection efficiency on $Z\to b\bar{b}$ signal MC (in %).
+- **Task**: Evaluate background mistag rates (in %) and background rejection factors ($1/\epsilon_{\rm bkg}$, as unitless numbers) on $W\to q\bar{q}$ MC and QCD background MC. Print a performance summary table comparing signal efficiency, mistag rates, and rejection factors.
 
 ### Step 3: `step3_2d_discriminants.py`
 - **Example**: Plot 2D histogram of $D_{bb}$ vs. $D_{qq}$ scores for $Z\to b\bar{b}$ signal MC.
