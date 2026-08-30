@@ -6,7 +6,7 @@ Welcome to the **Experimental High-Energy Physics (HEP) Training Series**. This 
 
 The training program covers the physics simulation and analysis workflow:
 
-$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Jet Clustering and Subjets} \longrightarrow \text{Part 3: Detector-Level ROOT Analysis \& ML}$$
+$$\text{Part 1: MadGraph} \longrightarrow \text{Part 2: Jet Clustering and Subjets} \longrightarrow \text{Part 3: Detector-Level ROOT Analysis and ML}$$
 
 ---
 
