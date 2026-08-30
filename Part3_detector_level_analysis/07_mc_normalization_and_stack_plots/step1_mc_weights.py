@@ -33,12 +33,12 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Generator Weights & Event Weight Calculation
     # ----------------------------------------------------
-    # 1. What code does: Reads generator weight branch 'weight_mc_NOSYS' (first 20,000 events via entry_stop=20000) and computes normalized per-event weights.
+    # 1. What code does: Reads generator weight branch 'weight_mc_NOSYS' and computes normalized per-event weights.
     # 2. Data type/shape: 1D NumPy array of per-event weights w_norm.
     # 3. HEP meaning: w_norm = w_gen * (sigma * L) / sum(w_gen) converts simulation counts to expected physical events.
     # 4. Common beginner mistake: Forgetting that generator weights can be negative (e.g. NLO MC interference).
     tree = uproot.open(file_path)["reco"]
-    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"], entry_stop=20000)
+    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"])
     
     # ----------------------------------------------------
     # EXAMPLE: Calculating Normalization Weights for Zbb
@@ -54,7 +54,7 @@ def main():
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
     w_norm_zbb = ak.to_numpy(w_norm_zbb)
     
-    mask = (pt > 250.0) & (mass > 0.0)
+    mask = (pt > 200.0) & (mass > 50.0)
     raw_count = len(mass[mask])
     exp_yield = np.sum(w_norm_zbb[mask])
     
@@ -66,7 +66,7 @@ def main():
     # Task Instructions:
     # 1. Loop over all samples in metadata["samples"] (Zbb, Zqq, Wqq, Dijet_JZ4).
     # 2. Compute per-event normalization weight w_norm for each sample.
-    # 3. Apply baseline cut: pT > 250 GeV and Mass > 0 GeV.
+    # 3. Apply baseline cut: pT > 200 GeV and Mass > 50 GeV.
     # 4. Print a summary table listing Sample Name, Raw Selected Count, and Expected Luminosity-Normalized Yield.
     # ----------------------------------------------------
     # Write your code below:

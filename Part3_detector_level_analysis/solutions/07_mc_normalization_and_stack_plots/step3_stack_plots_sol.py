@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Solution: Exercise 7 — Step 2: Stacked Process Histogram & MC Uncertainty Bands
+Solution: Exercise 7 — Step 3: Stacked Process Histogram & MC Uncertainty Bands
 Part 3 Detector-Level Analysis Tutorial
 """
 
@@ -21,7 +21,7 @@ def main():
     # 1. What code does: Configures ATLAS plot aesthetics and loads sample metadata for background & signal samples.
     # 2. Data type/shape: Python dict metadata and target luminosity float (44 fb^-1).
     # 3. HEP meaning: Prepares process definitions and luminosity target for stack histogram construction.
-    # 4. Common beginner mistake: Proceeding without checking if sample ROOT files exist.
+    # 4. Common pitfall: Proceeding without checking if sample ROOT files exist.
     setup_mplhep_style()
     metadata = load_metadata()
     target_lumi_fb = metadata["target_luminosity_fb"]
@@ -32,11 +32,11 @@ def main():
     # 1. What code does: Reads jet mass and generator weights for each sample and calculates per-event w_norm.
     # 2. Data type/shape: Dictionary mapping process names to arrays of mass and w_norm.
     # 3. HEP meaning: Scales each MC process (QCD, Wqq, Zqq, Zbb) to expected yields for 44 fb^-1.
-    # 4. Common beginner mistake: Summing errors linearly instead of using sqrt(sum(w^2)) for weighted histogram bins.
+    # 4. Common pitfall: Summing errors linearly instead of using sqrt(sum(w^2)) for weighted histogram bins.
     samples_info = metadata["samples"]
     
-    proc_order = ["Dijet_JZ4", "Wqq", "Zqq", "Zbb"]
-    proc_colors = {"Dijet_JZ4": "gold", "Wqq": "lightskyblue", "Zqq": "mediumseagreen", "Zbb": "crimson"}
+    proc_order = ["Zbb", "Zqq", "Wqq", "Dijet_JZ4"]
+    proc_colors = {"Zbb": "crimson", "Zqq": "mediumseagreen", "Wqq": "lightskyblue", "Dijet_JZ4": "gold"}
     
     mass_hist_list = []
     weight_hist_list = []
@@ -51,41 +51,54 @@ def main():
             return
             
         tree = uproot.open(fpath)["reco"]
-        events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"], entry_stop=20000)
+        events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"])
         
         w_norm = compute_event_weight(events, sinfo["xsec_pb"], sinfo["sum_of_weights"], target_lumi_fb)
         mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), 0.0))
         pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
         w_norm = ak.to_numpy(w_norm)
         
-        mask = (pt > 250.0) & (mass > 0.0)
+        mask = (pt > 200.0) & (mass > 50.0)
         mass_hist_list.append(mass[mask])
         weight_hist_list.append(w_norm[mask])
         labels_list.append(sinfo["process_name"])
         colors_list.append(proc_colors[key])
 
     # ----------------------------------------------------
-    # EXAMPLE: Plotting Stacked Process Histogram
+    # EXAMPLE: 2-Panel Stacked Process Histogram (Linear & Log Scales)
     # ----------------------------------------------------
     # Explanation:
-    # 1. What code does: Accumulates process mass histograms into a stacked distribution.
-    # 2. Data type/shape: matplotlib stacked histogram plot.
-    # 3. HEP meaning: Visualizes expected physical signal and background composition for target luminosity.
-    # 4. Beginner mistake: Plotting processes unstacked or normalized to unit area when showing physical yield composition.
-    bins = np.linspace(0, 300, 31)
-    fig, ax = plt.subplots(figsize=(8, 6))
-    ax.hist(mass_hist_list, bins=bins, weights=weight_hist_list, stacked=True, color=colors_list, label=labels_list, edgecolor='black')
-    ax.set_xlabel("Leading Large-R Jet Mass [GeV]")
-    ax.set_ylabel(f"Expected Events / 10 GeV ({target_lumi_fb:.0f} " + r"$\mathrm{fb}^{-1}$)")
-    ax.set_title("Luminosity-Normalized Stack Plot")
-    ax.legend(loc='upper right')
-    ax.grid(True, alpha=0.4)
+    # 1. What code does: Accumulates process mass histograms into stacked distributions on linear and log y-scales.
+    # 2. Data type/shape: 2-panel matplotlib stacked histogram figure.
+    # 3. HEP meaning: Visualizes physical signal and background composition across full yield dynamic ranges.
+    # 4. Beginner mistake: Omitting log-scale plots when background yields dominate signal by orders of magnitude.
+    bins = np.linspace(50, 250, 21)
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5.5))
+    
+    # Linear Scale
+    axes[0].hist(mass_hist_list, bins=bins, weights=weight_hist_list, stacked=True, color=colors_list, label=labels_list, edgecolor='black')
+    axes[0].set_xlabel("Leading Large-R Jet Mass [GeV]")
+    axes[0].set_ylabel(f"Expected Events / 10 GeV ({target_lumi_fb:.0f} " + r"$\mathrm{fb}^{-1}$)")
+    axes[0].set_title("Stack Plot (Linear Scale)")
+    axes[0].legend(loc='upper right')
+    axes[0].grid(True, alpha=0.4)
+    
+    # Log Scale
+    axes[1].hist(mass_hist_list, bins=bins, weights=weight_hist_list, stacked=True, color=colors_list, label=labels_list, edgecolor='black')
+    axes[1].set_yscale('log')
+    axes[1].set_ylim(1e-1, None)
+    axes[1].set_xlabel("Leading Large-R Jet Mass [GeV]")
+    axes[1].set_ylabel(f"Expected Events / 10 GeV ({target_lumi_fb:.0f} " + r"$\mathrm{fb}^{-1}$)")
+    axes[1].set_title("Stack Plot (Log Scale)")
+    axes[1].legend(loc='upper right')
+    axes[1].grid(True, alpha=0.4, which='both')
+    
     plt.tight_layout()
-    plt.savefig("exercise7_step2_example_stack_plot.png", dpi=200)
-    print("Saved example stack plot to 'exercise7_step2_example_stack_plot.png'.")
+    plt.savefig("exercise7_step3_example_stack_plot.png", dpi=200)
+    print("Saved example stack plot to 'exercise7_step3_example_stack_plot.png'.")
 
     # ====================================================
-    # SOLUTION: EXERCISE TASK 2
+    # SOLUTION: EXERCISE TASK 3
     # ====================================================
     # Explanation:
     # 1. What code does: Calculates total MC statistical variance sum(w_norm^2) and overlays uncertainty band.
@@ -127,8 +140,8 @@ def main():
     ax.grid(True, alpha=0.4)
     
     plt.tight_layout()
-    plt.savefig("exercise7_step2_stack_plot_sol.png", dpi=300)
-    print("Saved solution plot to 'exercise7_step2_stack_plot_sol.png'.")
+    plt.savefig("exercise7_step3_stack_plot_sol.png", dpi=300)
+    print("Saved solution plot to 'exercise7_step3_stack_plot_sol.png'.")
 
 if __name__ == "__main__":
     main()

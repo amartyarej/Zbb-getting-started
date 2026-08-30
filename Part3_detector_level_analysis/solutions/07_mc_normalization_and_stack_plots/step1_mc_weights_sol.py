@@ -33,21 +33,21 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Generator Weights & Event Weight Calculation
     # ----------------------------------------------------
-    # 1. What code does: Reads generator weight branch 'weight_mc_NOSYS' (first 20,000 events via entry_stop=20000) and computes normalized per-event weights.
+    # 1. What code does: Reads generator weight branch 'weight_mc_NOSYS' and computes normalized per-event weights.
     # 2. Data type/shape: 1D NumPy array of per-event weights w_norm.
     # 3. HEP meaning: w_norm = w_gen * (sigma * L) / sum(w_gen) converts simulation counts to expected physical events.
     # 4. Common beginner mistake: Forgetting that generator weights can be negative (e.g. NLO MC interference).
     tree = uproot.open(file_path)["reco"]
-    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"], entry_stop=20000)
+    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"])
     
     # ----------------------------------------------------
     # EXAMPLE: Calculating Normalization Weights for Zbb
     # ----------------------------------------------------
     # Explanation:
-    # 1. What code does: Computes per-event normalization weight w_norm = w_gen * (xsec * lumi) / sum_w.
-    # 2. Data type/shape: 1D NumPy array of event weights.
-    # 3. HEP meaning: Scales raw MC event counts to expected physical yields for 44 fb^-1.
-    # 4. Beginner mistake: Forgetting to convert cross section units (pb vs nb) or target luminosity (fb^-1 vs pb^-1).
+    # 1. What code does: Calculates normalized event weights for Zbb sample.
+    # 2. Data type/shape: 1D NumPy array of float weights.
+    # 3. HEP meaning: Converts MC event count to expected physical events for target integrated luminosity.
+    # 4. Beginner mistake: Using un-weighted entry counts for cross-section calculations.
     w_norm_zbb = compute_event_weight(
         events,
         xsec_pb=zbb_info["xsec_pb"],
@@ -59,7 +59,7 @@ def main():
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
     w_norm_zbb = ak.to_numpy(w_norm_zbb)
     
-    mask = (pt > 250.0) & (mass > 0.0)
+    mask = (pt > 200.0) & (mass > 50.0)
     raw_count = len(mass[mask])
     exp_yield = np.sum(w_norm_zbb[mask])
     
@@ -86,14 +86,14 @@ def main():
             continue
             
         t = uproot.open(fpath)["reco"]
-        evts = t.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"], entry_stop=20000)
+        evts = t.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"])
         
         w_n = compute_event_weight(evts, sinfo["xsec_pb"], sinfo["sum_of_weights"], target_lumi_fb)
         m = ak.to_numpy(ak.fill_none(ak.firsts(evts["largeRjet_m_NOSYS"] / 1000.0), 0.0))
         p = ak.to_numpy(ak.fill_none(ak.firsts(evts["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
         w_n = ak.to_numpy(w_n)
         
-        m_mask = (p > 250.0) & (m > 0.0)
+        m_mask = (p > 200.0) & (m > 50.0)
         r_cnt = len(m[m_mask])
         e_yld = np.sum(w_n[m_mask])
         print(f"Sample {key:10s} | Raw Selected: {r_cnt:7d} | Expected Yield ({target_lumi_fb} fb^-1): {e_yld:10.2f}")

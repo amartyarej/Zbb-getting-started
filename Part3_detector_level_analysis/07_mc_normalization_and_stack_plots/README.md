@@ -30,12 +30,16 @@ Squaring the weights ($w_{\rm norm, i}^2$) ensures that negative generator weigh
 ## 🛠 Steps & Hands-on Tasks
 
 ### Step 1: `step1_mc_weights.py`
-- **Example**: Calculate per-event normalization weight $w_{\rm norm}$ for $Z\to b\bar{b}$ MC sample using `helpers.compute_event_weight()`.
+- **Example**: Calculate per-event normalization weight $w_{\rm norm}$ for $Z\to b\bar{b}$ MC sample using `helpers.compute_event_weight()` under baseline selection ($p_T > 200\text{ GeV}$ and $m > 50\text{ GeV}$).
 - **Task**: Calculate expected yields for $Z\to q\bar{q}$, $W\to q\bar{q}$, and Dijet QCD JZ4 samples for target luminosity $44\text{ fb}^{-1}$. Compare raw selected entries vs. expected luminosity-normalized yields.
 
-### Step 2: `step2_stack_plots.py`
-- **Example**: Accumulate binned weighted mass distributions across background processes ($QCD$, $Wqq$, $Zqq$) and signal ($Zbb$).
-- **Task**: Construct a stacked histogram plot using `ax.hist(..., stacked=True)` with statistical uncertainty error bands ($\sqrt{\sum w^2}$). Save your plot to `exercise7_step2_stack_plot.png`.
+### Step 2: `step2_tagger_selection_stack.py`
+- **Example**: Compare inclusive baseline stacked jet mass distribution against ParT Mass-Decorrelated 50% WP selected stacked distribution (`ParT_W_50_MassDec_NOSYS`).
+- **Task**: Construct a 2-panel stacked histogram (Linear and Log y-scale) of events passing the ParT MassDec 50% WP selection. Save your plot to `exercise7_step2_tagger_selection_stack.png`.
+
+### Step 3: `step3_stack_plots.py`
+- **Example**: Construct a 2-panel stacked jet mass distribution (linear y-scale and log y-scale) with $W/Z$ processes stacked at the bottom and Dijet QCD stacked at the top (`proc_order = ["Zbb", "Zqq", "Wqq", "Dijet_JZ4"]`).
+- **Task**: Calculate total MC statistical variance $\sum w_{\text{norm}}^2$ per mass bin and overlay shaded statistical uncertainty bands ($\pm 1\sigma$) on the stack plot. Save your plot to `exercise7_step3_stack_plot.png`.
 
 ---
 
@@ -49,8 +53,11 @@ cd 07_mc_normalization_and_stack_plots
 # Run Step 1: Per-Event Normalization Weight Calculation
 python3 step1_mc_weights.py
 
-# Run Step 2: Stacked Process Histogram & MC Uncertainty Bands
-python3 step2_stack_plots.py
+# Run Step 2: Tagger-Selected Stack Plot (ParT MassDec 50% WP)
+python3 step2_tagger_selection_stack.py
+
+# Run Step 3: Stacked Process Histogram & MC Uncertainty Bands
+python3 step3_stack_plots.py
 ```
 
 ---
