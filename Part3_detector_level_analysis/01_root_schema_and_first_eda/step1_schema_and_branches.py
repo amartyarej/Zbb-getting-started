@@ -11,7 +11,7 @@ import awkward as ak
 
 # Add parent directory to path to import helpers
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata
+from helpers import load_metadata, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -57,7 +57,7 @@ def main():
     # 2. Data type/shape: mu -> 1D array (N_events,); jet_pt -> Jagged array (N_events, var_jets).
     # 3. HEP meaning: mu is event-level; jet_pt is object-level (variable number of jets per event).
     # 4. Beginner mistake: Treating jagged arrays as rectangular 2D matrices.
-    events = tree.arrays(["actualInteractionsPerCrossing", "largeRjet_pt_NOSYS"], entry_stop=5000)
+    events = tree.arrays(["actualInteractionsPerCrossing", "largeRjet_pt_NOSYS"], entry_stop=MAX_EVENTS)
     mu = events["actualInteractionsPerCrossing"]
     largeR_pt = events["largeRjet_pt_NOSYS"] / 1000.0  # Convert MeV to GeV
 

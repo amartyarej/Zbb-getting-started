@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, eval_part_wp, setup_mplhep_style
+from helpers import load_metadata, eval_part_wp, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -45,8 +45,8 @@ def main():
         "largeRjet_ParT_W_massDec_score"
     ]
     
-    events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=15000)
-    events_qcd = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=15000)
+    events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
+    events_qcd = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
     
     pt_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
     score_ann_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_ANN50Tagger_score_NOSYS"]), -1.0))

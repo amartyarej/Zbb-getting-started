@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -37,7 +37,7 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Binary Tagger Scores & Jet Kinematics
     # ----------------------------------------------------
-    # 1. What code does: Loads ANN and ParT W-tagger scores and pT branches for Wqq, Zqq, Zbb, and QCD events (entry_stop=15000).
+    # 1. What code does: Loads ANN and ParT W-tagger scores and pT branches for Wqq, Zqq, Zbb, and QCD events (entry_stop=MAX_EVENTS).
     # 2. Data type/shape: 1D NumPy arrays of score floats and pT values in GeV.
     # 3. HEP meaning: Extracts ML classifier predictions for true W/Z-jets vs background QCD jets.
     # 4. Common beginner mistake: Evaluating tagger scores without filtering invalid default values (-1.0).
@@ -47,10 +47,10 @@ def main():
         "largeRjet_ParT_W_massDec_score"
     ]
     
-    events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=15000)
-    events_zqq = uproot.open(zqq_path)["reco"].arrays(branches, entry_stop=15000)
-    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=15000)
-    events_qcd = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=15000)
+    events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
+    events_zqq = uproot.open(zqq_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
+    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
+    events_qcd = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
     
     score_ann_wqq = ak.to_numpy(ak.fill_none(ak.firsts(events_wqq["largeRjet_ANN50Tagger_score_NOSYS"]), -1.0))
     score_ann_zqq = ak.to_numpy(ak.fill_none(ak.firsts(events_zqq["largeRjet_ANN50Tagger_score_NOSYS"]), -1.0))

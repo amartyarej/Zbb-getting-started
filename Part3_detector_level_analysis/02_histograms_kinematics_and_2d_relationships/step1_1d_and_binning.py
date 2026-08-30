@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -33,12 +33,12 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Columnar TTree extraction & NaN Filtering
     # ----------------------------------------------------
-    # 1. What code does: Reads jet pT and mass branches (first 20,000 events via entry_stop=20000), converts MeV to GeV, extracts leading jets, and filters NaNs.
-    # 2. Data type/shape: 1D NumPy arrays of valid floats for pT and mass.
-    # 3. HEP meaning: Prepares leading reconstructed large-R jet observables for histogramming.
-    # 4. Common beginner mistake: Passing unfiltered NaN entries into matplotlib histogramming functions.
+    # 1. What code does: Reads jet pT and mass branches (first MAX_EVENTS events via entry_stop=MAX_EVENTS), converts MeV to GeV, extracts leading jets, and filters NaNs.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats.
+    # 3. HEP meaning: Converts raw detector energies to physical GeV units and extracts leading reconstructed jet properties.
+    # 4. Common beginner mistake: Forgetting to filter NaN values resulting from empty jet collections.
     tree = uproot.open(file_path)["reco"]
-    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS"], entry_stop=20000)
+    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS"], entry_stop=MAX_EVENTS)
     
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
     mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))

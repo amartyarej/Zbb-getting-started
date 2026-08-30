@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -48,7 +48,7 @@ def main():
         "largeRjet_GN3X_pQCDll"
     ]
     
-    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=15000)
+    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
     
     # ----------------------------------------------------
     # EXAMPLE: Extracting GN3X Probabilities & Summing QCD Classes

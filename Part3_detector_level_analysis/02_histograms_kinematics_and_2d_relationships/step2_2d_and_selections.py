@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -33,12 +33,12 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Kinematics (pT, eta, mass) & NaN Cleanup
     # ----------------------------------------------------
-    # 1. What code does: Reads jet pT, eta, mass (first 20,000 events via entry_stop=20000); converts MeV to GeV; cleans NaN entries.
-    # 2. Data type/shape: 1D NumPy arrays of valid floats for pT, eta, mass.
-    # 3. HEP meaning: Extracts reconstructed leading jet four-vector components for cut evaluation.
-    # 4. Common beginner mistake: Evaluating eta cut on uncleaned arrays containing None values.
+    # 1. What code does: Reads jet pT, eta, mass (first MAX_EVENTS events via entry_stop=MAX_EVENTS); converts MeV to GeV; cleans NaN entries.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats.
+    # 3. HEP meaning: Extracts jet kinematics to construct 2D pT-vs-mass correlations and evaluate kinematic cuts.
+    # 4. Common beginner mistake: Forgetting that cutflow step statistics change when cut thresholds are modified.
     tree = uproot.open(file_path)["reco"]
-    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_eta", "largeRjet_m_NOSYS"], entry_stop=20000)
+    events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_eta", "largeRjet_m_NOSYS"], entry_stop=MAX_EVENTS)
     
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
     eta = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_eta"]), np.nan))

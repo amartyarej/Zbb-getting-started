@@ -11,7 +11,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, compute_distance_correlation
+from helpers import load_metadata, compute_distance_correlation, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -40,7 +40,7 @@ def main():
         "largeRjet_pt_NOSYS", "largeRjet_m_NOSYS",
         "largeRjet_Tau1_wta", "largeRjet_Tau2_wta",
         "largeRjet_ParT_W_massDec_score", "actualInteractionsPerCrossing"
-    ], entry_stop=15000)
+    ], entry_stop=MAX_EVENTS)
     
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
     mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))

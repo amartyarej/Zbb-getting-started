@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -50,7 +50,7 @@ def main():
         "largeRjet_GN3X_pQCDll"
     ]
     
-    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=15000)
+    events_zbb = uproot.open(zbb_path)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
     
     # ----------------------------------------------------
     # EXAMPLE: Extracting GN3X Probabilities & Summing QCD Classes
@@ -90,7 +90,7 @@ def main():
     # 3. HEP meaning: Composite ratio isolates Zbb signal against Wqq and QCD backgrounds.
     # 4. Beginner mistake: Division by zero when denominator is small (use np.where).
     def get_dbb(fpath):
-        events = uproot.open(fpath)["reco"].arrays(branches, entry_stop=15000)
+        events = uproot.open(fpath)["reco"].arrays(branches, entry_stop=MAX_EVENTS)
         hbb = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_phbb"]), 0.0))
         wqq = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pWqq"]), 0.0))
         qcd = (ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_GN3X_pQCDbb"]), 0.0)) +

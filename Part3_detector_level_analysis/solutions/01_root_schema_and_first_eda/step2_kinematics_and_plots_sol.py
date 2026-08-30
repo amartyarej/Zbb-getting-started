@@ -12,7 +12,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from helpers import load_metadata, setup_mplhep_style
+from helpers import load_metadata, setup_mplhep_style, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -41,7 +41,7 @@ def main():
     events = tree.arrays([
         "actualInteractionsPerCrossing",
         "largeRjet_pt_NOSYS"
-    ], entry_stop=10000)
+    ], entry_stop=MAX_EVENTS)
     
     mu = events["actualInteractionsPerCrossing"]
     largeR_pt = events["largeRjet_pt_NOSYS"] / 1000.0  # GeV

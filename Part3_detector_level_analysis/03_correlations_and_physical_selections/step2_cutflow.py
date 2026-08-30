@@ -11,7 +11,7 @@ import uproot
 import awkward as ak
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from helpers import load_metadata
+from helpers import load_metadata, MAX_EVENTS
 
 def main():
     # ----------------------------------------------------
@@ -31,7 +31,7 @@ def main():
     # ----------------------------------------------------
     # Data Loading: Kinematics, Substructure (Tau1, Tau2) & Ratio
     # ----------------------------------------------------
-    # 1. What code does: Reads pT, mass, tau1, tau2 (first 20,000 events via entry_stop=20000); converts MeV to GeV; computes N-subjettiness ratio tau21 = tau2/tau1.
+    # 1. What code does: Reads pT, mass, tau1, tau2 (first MAX_EVENTS events via entry_stop=MAX_EVENTS); converts MeV to GeV; computes N-subjettiness ratio tau21 = tau2/tau1.
     # 2. Data type/shape: 1D NumPy arrays of valid floats.
     # 3. HEP meaning: Tau21 measures 2-prong vs 1-prong jet substructure topology.
     # 4. Common beginner mistake: Dividing tau2 by tau1 without checking for tau1 == 0 (division by zero).
@@ -39,7 +39,7 @@ def main():
     events = tree.arrays([
         "largeRjet_pt_NOSYS", "largeRjet_m_NOSYS",
         "largeRjet_Tau1_wta", "largeRjet_Tau2_wta"
-    ], entry_stop=20000)
+    ], entry_stop=MAX_EVENTS)
     
     pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
     mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))
