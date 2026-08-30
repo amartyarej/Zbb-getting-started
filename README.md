@@ -24,8 +24,7 @@ The repository is organized into three self-contained parts:
 ### 2. [Part 2: Jet Clustering, Radius Dependence, & Subjet Exploration](./Part2_Jets)
 - **Directory**: `Part2_Jets/`
 - **Core Focus**: Hands-on introduction to jet physics using Python `fastjet`, `uproot`, and `awkward` on constituent-level ROOT events (`data/Zbb_RawConst.root`).
-- **Deliverables**:
-  - `Part2_01_jet_clustering_and_subjets.ipynb`: Hadronic physics foundations, sequential recombination algorithms ($anti-k_t$, $k_t$, C/A), constituent $(\eta, \phi)$ visualization, radius parameter scan ($R=0.2, 0.4, 0.8, 1.0$), exclusive $N=2$ subjet reclustering, and Truth vs. EMPFlow comparison.
+- **Deliverables**: Hadronic physics foundations, sequential recombination algorithms ($anti-k_t$, $k_t$, C/A), constituent $(\eta, \phi)$ visualization, radius parameter scan ($R=0.2, 0.4, 0.8, 1.0$), exclusive $N=2$ subjet reclustering, and Truth vs. EMPFlow comparison.
 
 ### 3. [Part 3: Detector-Level ROOT Analysis, Exploratory Data Analysis, Taggers, Sculpting, & MC Normalization](./Part3_detector_level_analysis)
 - **Directory**: `Part3_detector_level_analysis/`
