@@ -74,13 +74,13 @@ def main():
     # Explanation:
     # 1. What code does: Computes D_bb scores and mistag rates for Wqq and QCD samples.
     # 2. Data type/shape: Summary performance table.
-    # 3. HEP meaning: Multi-class efficiency grid measures signal retention vs rejection of specific background channels.
+    # 3. HEP meaning: Process-dependent selection evaluation measures signal retention vs rejection of specific background channels.
     # 4. Beginner mistake: Grouping all background types together into a single efficiency number.
     dbb_wqq = get_dbb(wqq_path)
     dbb_qcd = get_dbb(qcd_path)
     
     print("=" * 60)
-    print("SOLUTION: Exercise 6 — Step 2: Efficiency Grid Table")
+    print("SOLUTION: Exercise 6 — Step 2: Selection Efficiency & Mistag Summary Table")
     print("=" * 60)
     print(f"Working Point Cut: D_bb > {thresh:.2f}")
     print(f"Z->bb Selection Efficiency:  {np.mean(dbb_zbb > thresh)*100:.2f}%")

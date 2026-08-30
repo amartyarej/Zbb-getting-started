@@ -28,7 +28,11 @@ $$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}$$
 
 ### Step 2: `step2_performance_grid.py`
 - **Example**: Compute $D_{bb} > 0.60$ selection efficiency on $Z\to b\bar{b}$ signal MC.
-- **Task**: Evaluate mistag rates on $W\to q\bar{q}$ MC and QCD background MC. Print a 3-class selection efficiency grid table.
+- **Task**: Evaluate mistag rates on $W\to q\bar{q}$ MC and QCD background MC. Print a selection efficiency table comparing $Z\to b\bar{b}$ signal efficiency against $W\to q\bar{q}$ and QCD background mistag rates.
+
+### Step 3: `step3_2d_discriminants.py`
+- **Example**: Plot 2D histogram of $D_{bb}$ vs. $D_{qq}$ scores for $Z\to b\bar{b}$ signal MC.
+- **Task**: Create a 3-panel 2D comparison figure of ($D_{bb}$ vs $D_{qq}$) across $Z\to b\bar{b}$ signal, $W\to q\bar{q}$ background, and QCD dijet background samples to demonstrate 2D topological class separation.
 
 ---
 
@@ -42,8 +46,11 @@ cd 06_flavour_multiclass_taggers_and_performance
 # Run Step 1: GN3X Multiclass Score Extraction & Composite Ratio Discriminant
 python3 step1_multiclass_scores.py
 
-# Run Step 2: Multi-Class Efficiency Grid Evaluation
+# Run Step 2: Multi-Class Selection Efficiency & Mistag Evaluation
 python3 step2_performance_grid.py
+
+# Run Step 3: 2D Multi-Discriminant Performance (D_bb vs D_qq)
+python3 step3_2d_discriminants.py
 ```
 
 ---

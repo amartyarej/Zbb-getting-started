@@ -35,8 +35,8 @@ def main():
     # ----------------------------------------------------
     # 1. What code does: Computes composite D_bb ratio scores for Zbb, Wqq, and QCD dijet events (entry_stop=15000).
     # 2. Data type/shape: 1D NumPy arrays of valid float D_bb values.
-    # 3. HEP meaning: Provides classifier discriminant outputs across 3 physics processes to build efficiency grid.
-    # 4. Common beginner mistake: Comparing efficiency grid metrics without applying identical kinematic cuts across samples.
+    # 3. HEP meaning: Provides classifier discriminant outputs across 3 physics processes (Zbb, Wqq, QCD) to measure signal efficiency and background mistag rates.
+    # 4. Common pitfall: Comparing process metrics without applying identical kinematic cuts across samples.
     branches = [
         "largeRjet_pt_NOSYS", "largeRjet_GN3X_phbb", "largeRjet_GN3X_pWqq",
         "largeRjet_GN3X_pQCDbb", "largeRjet_GN3X_pQCDbx", "largeRjet_GN3X_pQCDcx", "largeRjet_GN3X_pQCDll"
@@ -69,11 +69,11 @@ def main():
     # Task Instructions:
     # 1. Compute D_bb scores for Wqq background and QCD background.
     # 2. Evaluate selection efficiency (mistag rate) on Wqq and QCD at D_bb > 0.60 threshold.
-    # 3. Print a 3-class efficiency grid table comparing Zbb, Wqq, and QCD!
+    # 3. Print a summary table listing Zbb signal efficiency alongside Wqq and QCD background mistag rates!
     # ----------------------------------------------------
     # Write your code below:
     
-    # TODO: Compute Wqq and QCD mistag rates and print efficiency grid
+    # TODO: Compute Wqq and QCD mistag rates and print summary table
 
 if __name__ == "__main__":
     main()
