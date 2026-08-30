@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Z->bb sample path.
+    # 2. Data type/shape: Python dict and string filepath.
+    # 3. HEP meaning: Prepares plot parameters for 2D phase-space visualization.
+    # 4. Common beginner mistake: Proceeding without checking ROOT file existence.
     setup_mplhep_style()
     metadata = load_metadata()
     file_path = metadata["samples"]["Zbb"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Kinematics (pT, eta, mass) & NaN Cleanup
+    # ----------------------------------------------------
+    # 1. What code does: Reads jet pT, eta, mass (first 20,000 events via entry_stop=20000); converts MeV to GeV; cleans NaN entries.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats for pT, eta, mass.
+    # 3. HEP meaning: Extracts reconstructed leading jet four-vector components for cut evaluation.
+    # 4. Common beginner mistake: Evaluating eta cut on uncleaned arrays containing None values.
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_eta", "largeRjet_m_NOSYS"], entry_stop=20000)
     

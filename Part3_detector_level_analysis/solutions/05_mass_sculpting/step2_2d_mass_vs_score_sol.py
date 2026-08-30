@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Dijet QCD background path.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Prepares sample reference for 2D mass vs score diagnostic plots.
+    # 4. Common beginner mistake: Proceeding without checking ROOT file existence.
     setup_mplhep_style()
     metadata = load_metadata()
     qcd_path = metadata["samples"]["Dijet_JZ4"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {qcd_path} not found.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Jet Mass & Standard ParT Score
+    # ----------------------------------------------------
+    # 1. What code does: Loads jet mass and standard ParT W-tagger score for QCD dijets (entry_stop=25000).
+    # 2. Data type/shape: 1D NumPy arrays of valid floats.
+    # 3. HEP meaning: Provides 2D observable space (mass vs score) to inspect conditional quantiles.
+    # 4. Common beginner mistake: Plotting 2D histograms without setting explicit bin boundaries.
     branches = ["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "largeRjet_ParT_W_score"]
     
     events = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=25000)

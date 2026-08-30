@@ -14,6 +14,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, compute_distance_correlation
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Dataset metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Reads sample path for Z->bb MC from metadata JSON.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Provides dataset reference path for correlation studies.
+    # 4. Common beginner mistake: Proceeding without checking file existence.
     metadata = load_metadata()
     file_path = metadata["samples"]["Zbb"]["file_path"]
     
@@ -21,6 +28,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Kinematics, Substructure, & ML Scores
+    # ----------------------------------------------------
+    # 1. What code does: Reads pT, mass, tau1, tau2, ParT score, mu from 'reco' tree (first 15,000 events via entry_stop=15000); cleans NaN values.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats.
+    # 3. HEP meaning: Extracts multi-dimensional observable space to calculate linear and non-linear correlation metrics.
+    # 4. Common beginner mistake: Calculating correlation coefficients on uncleaned arrays containing NaN values.
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays([
         "largeRjet_pt_NOSYS", "largeRjet_m_NOSYS",

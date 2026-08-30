@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, eval_part_wp, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Wqq signal and QCD background paths.
+    # 2. Data type/shape: Python string filepaths.
+    # 3. HEP meaning: Prepares sample paths for ROC curve generation and WP evaluation.
+    # 4. Common beginner mistake: Proceeding without checking ROOT file existence.
     setup_mplhep_style()
     metadata = load_metadata()
     
@@ -25,6 +32,13 @@ def main():
         print("[Note]: ROOT files not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: ParT Score & Kinematics Extraction
+    # ----------------------------------------------------
+    # 1. What code does: Loads ParT score and jet pT from 'reco' tree for Wqq signal and QCD background (entry_stop=15000).
+    # 2. Data type/shape: 1D NumPy arrays of score floats and pT in GeV.
+    # 3. HEP meaning: Provides classifier inputs to calculate signal efficiency vs background rejection.
+    # 4. Common beginner mistake: Calculating ROC curves with uncleaned NaN score arrays.
     branches = ["largeRjet_pt_NOSYS", "largeRjet_ParT_W_massDec_score"]
     
     events_wqq = uproot.open(wqq_path)["reco"].arrays(branches, entry_stop=15000)

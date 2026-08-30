@@ -31,6 +31,22 @@
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 02_histograms_kinematics_and_2d_relationships
+
+# Run Step 1: 1D Kinematics, Binning Pedagogy, and Log Axes
+python3 step1_1d_and_binning.py
+
+# Run Step 2: 2D Phase Space and Selection Cut Effects
+python3 step2_2d_and_selections.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **Why should the y-axis label distinguish ‘events’, ‘weighted events’, and ‘normalized density’?**

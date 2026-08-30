@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Dijet QCD background path.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Accesses background QCD sample to study tagger-induced mass sculpting artifacts.
+    # 4. Common beginner mistake: Testing mass sculpting on signal samples instead of falling background.
     setup_mplhep_style()
     metadata = load_metadata()
     qcd_path = metadata["samples"]["Dijet_JZ4"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {qcd_path} not found.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Background Jet Mass & Dual Scores
+    # ----------------------------------------------------
+    # 1. What code does: Loads jet mass, standard ParT score, and mass-decorrelated ParT score for QCD dijets (entry_stop=25000).
+    # 2. Data type/shape: 1D NumPy arrays of valid floats for mass (GeV) and classifier scores.
+    # 3. HEP meaning: Compares standard tagger vs mass-decorrelated tagger effects on background mass shape.
+    # 4. Common beginner mistake: Comparing mass shapes with different total selection efficiencies.
     branches = [
         "largeRjet_pt_NOSYS",
         "largeRjet_m_NOSYS",

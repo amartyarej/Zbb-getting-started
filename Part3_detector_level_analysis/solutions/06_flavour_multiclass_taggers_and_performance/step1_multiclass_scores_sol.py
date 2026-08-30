@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Zbb sample path.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Accesses reconstructed event dataset for GN3X multiclass tagger evaluation.
+    # 4. Common beginner mistake: Proceeding without checking ROOT file accessibility.
     setup_mplhep_style()
     metadata = load_metadata()
     
@@ -22,6 +29,13 @@ def main():
     wqq_path = metadata["samples"]["Wqq"]["file_path"]
     qcd_path = metadata["samples"]["Dijet_JZ4"]["file_path"]
     
+    # ----------------------------------------------------
+    # Data Loading: Multiclass GN3X Class Branches
+    # ----------------------------------------------------
+    # 1. What code does: Reads GN3X 9-class probability branches for Zbb events (entry_stop=15000).
+    # 2. Data type/shape: Jagged arrays of raw floats.
+    # 3. HEP meaning: Loads individual decay topology probabilities (phbb, pWqq, pQCD_all).
+    # 4. Common beginner mistake: Trying to read GN3X scores without loading all relevant component branches.
     if not (os.path.exists(zbb_path) and os.path.exists(wqq_path) and os.path.exists(qcd_path)):
         print("[Note]: ROOT files not accessible locally.")
         return

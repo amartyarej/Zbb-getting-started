@@ -31,6 +31,22 @@
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 04_use_of_binary_tagger
+
+# Run Step 1: Binary Tagger Score Separation
+python3 step1_tagger_scores.py
+
+# Run Step 2: Working Point Evaluation & ROC Curves
+python3 step2_working_points_and_roc.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **Why does applying a higher binary tagger score threshold increase signal purity while reducing signal efficiency, and why must tagger working points be frozen prior to inspecting mass distributions?**

@@ -15,9 +15,24 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, compute_event_weight, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling, metadata, & luminosity loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and loads sample metadata for background & signal samples.
+    # 2. Data type/shape: Python dict metadata and target luminosity float (44 fb^-1).
+    # 3. HEP meaning: Prepares process definitions and luminosity target for stack histogram construction.
+    # 4. Common beginner mistake: Proceeding without checking if sample ROOT files exist.
     setup_mplhep_style()
     metadata = load_metadata()
     target_lumi_fb = metadata["target_luminosity_fb"]
+    
+    # ----------------------------------------------------
+    # Data Loading & Event Weighting across Processes
+    # ----------------------------------------------------
+    # 1. What code does: Reads jet mass and generator weights for each sample and calculates per-event w_norm.
+    # 2. Data type/shape: Dictionary mapping process names to arrays of mass and w_norm.
+    # 3. HEP meaning: Scales each MC process (QCD, Wqq, Zqq, Zbb) to expected yields for 44 fb^-1.
+    # 4. Common beginner mistake: Summing errors linearly instead of using sqrt(sum(w^2)) for weighted histogram bins.
     samples_info = metadata["samples"]
     
     proc_order = ["Dijet_JZ4", "Wqq", "Zqq", "Zbb"]

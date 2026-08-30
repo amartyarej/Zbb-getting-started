@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Wqq signal and QCD background paths.
+    # 2. Data type/shape: Python string filepaths for Wqq and QCD samples.
+    # 3. HEP meaning: Accesses signal and background sample trees for classifier performance evaluation.
+    # 4. Common beginner mistake: Proceeding without checking if both signal and background sample files exist.
     setup_mplhep_style()
     metadata = load_metadata()
     
@@ -25,6 +32,13 @@ def main():
         print("[Note]: ROOT files not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Binary Tagger Scores & Jet Kinematics
+    # ----------------------------------------------------
+    # 1. What code does: Loads ANN and ParT W-tagger scores and pT branches for Wqq and QCD events (entry_stop=15000).
+    # 2. Data type/shape: 1D NumPy arrays of score floats and pT values in GeV.
+    # 3. HEP meaning: Extracts ML classifier predictions for true W-jets vs background QCD jets.
+    # 4. Common beginner mistake: Evaluating tagger scores without filtering invalid default values (-1.0).
     branches = [
         "largeRjet_pt_NOSYS",
         "largeRjet_ANN50Tagger_score_NOSYS",

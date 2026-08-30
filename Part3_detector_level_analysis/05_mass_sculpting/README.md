@@ -28,6 +28,22 @@
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 05_mass_sculpting
+
+# Run Step 1: Mass Sculpting Comparison
+python3 step1_mass_sculpting.py
+
+# Run Step 2: 2D Diagnostic: Jet Mass vs Tagger Score
+python3 step2_2d_mass_vs_score.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **Why can a tagger-selected mass distribution differ significantly from the inclusive mass distribution in background events even when no physical resonance is present?**

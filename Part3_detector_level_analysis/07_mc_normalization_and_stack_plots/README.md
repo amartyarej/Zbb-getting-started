@@ -39,6 +39,22 @@ Squaring the weights ($w_{\rm norm, i}^2$) ensures that negative generator weigh
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 07_mc_normalization_and_stack_plots
+
+# Run Step 1: Per-Event Normalization Weight Calculation
+python3 step1_mc_weights.py
+
+# Run Step 2: Stacked Process Histogram & MC Uncertainty Bands
+python3 step2_stack_plots.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **Why is taking the sum of squared weights $\sum w^2$ necessary for calculating the statistical uncertainty on a weighted histogram bin, especially when generator weights can be negative?**

@@ -32,6 +32,22 @@ $$D_{bb} = \frac{P_{hbb}}{P_{hbb} + P_{Wqq} + P_{\rm QCD\_all}}$$
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 06_flavour_multiclass_taggers_and_performance
+
+# Run Step 1: GN3X Multiclass Score Extraction & Composite Ratio Discriminant
+python3 step1_multiclass_scores.py
+
+# Run Step 2: Multi-Class Efficiency Grid Evaluation
+python3 step2_performance_grid.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **Why can a large `bb` classifier output enrich a Z→bb MC sample without proving that every selected reconstructed jet originated from a b-quark pair?**

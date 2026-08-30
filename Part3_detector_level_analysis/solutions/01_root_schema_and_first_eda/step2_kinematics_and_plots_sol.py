@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads sample file path.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Standardizes plot typography and layout across detector analyses.
+    # 4. Common beginner mistake: Proceeding without verifying local ROOT file existence.
     setup_mplhep_style()
     metadata = load_metadata()
     file_path = metadata["samples"]["Zbb"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Columnar TTree extraction & Unit Conversion
+    # ----------------------------------------------------
+    # 1. What code does: Reads pileup mu and jet pT from 'reco' tree (first 10,000 events via entry_stop=10000); converts pT from MeV to GeV.
+    # 2. Data type/shape: mu -> 1D array of shape (10000,); largeR_pt -> Jagged array of shape (10000, var_jets).
+    # 3. HEP meaning: Loads reconstructed collision physics observables into memory for exploratory analysis.
+    # 4. Common beginner mistake: Forgetting to divide ROOT pT by 1000.0 (MeV to GeV), or omitting entry_stop during prototyping.
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays([
         "actualInteractionsPerCrossing",
@@ -44,7 +58,7 @@ def main():
     ax.hist(mu, bins=30, range=(10, 70), color='navy', alpha=0.7, edgecolor='black')
     ax.set_xlabel(r"Actual Interactions per Crossing $\mu$")
     ax.set_ylabel("Events")
-    ax.set_title("Event-Level Pileup Proxy")
+    ax.set_title("Actual Pileup in Z->bb sample")
     ax.grid(True, linestyle='--', alpha=0.5)
     plt.tight_layout()
     plt.savefig("example_mu_distribution.png", dpi=200)
@@ -67,7 +81,7 @@ def main():
     axes[0].hist(mu, bins=30, range=(10, 70), color='navy', alpha=0.7, edgecolor='black')
     axes[0].set_xlabel(r"Actual Interactions per Crossing $\mu$")
     axes[0].set_ylabel("Events")
-    axes[0].set_title("Event-Level Pileup Proxy")
+    axes[0].set_title("Actual Pileup in Z->bb sample")
     axes[0].grid(True, linestyle='--', alpha=0.5)
     
     # Panel 2: Large-R Jet Multiplicity

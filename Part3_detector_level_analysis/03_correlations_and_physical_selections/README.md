@@ -33,6 +33,22 @@ Introduced as a dependence measure designed to detect non-linear relationships:
 
 ---
 
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 03_correlations_and_physical_selections
+
+# Run Step 1: Pearson Matrix & Non-Linear Distance Correlation
+python3 step1_correlations.py
+
+# Run Step 2: Baseline Selection Cutflow Table
+python3 step2_cutflow.py
+```
+
+---
+
 ## ❓ Checkpoint Question
 
 > **If mass and $p_T$ have a nonzero correlation, why does that not identify the physical mechanism causing it?**

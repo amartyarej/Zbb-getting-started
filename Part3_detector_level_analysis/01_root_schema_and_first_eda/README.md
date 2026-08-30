@@ -30,7 +30,23 @@ In experimental High-Energy Physics (HEP), collision events are stored in ROOT f
 - **Task**: Extract leading Large-R jet $p_T$ (`largeRjet_pt_NOSYS`) and jet multiplicity using `ak.num()`. Produce a 3-panel matplotlib figure showing:
   1. Pileup $\mu$ distribution.
   2. Large-R jet multiplicity distribution per event.
-  3. Inclusive Large-R jet $p_T$ distribution in GeV.
+  3. Inclusive Large-R jet $p_T$ distribution.
+
+---
+
+## 🚀 How to Run
+
+Navigate to this exercise directory and execute the python scripts:
+
+```bash
+cd 01_root_schema_and_first_eda
+
+# Run Step 1: Schema & Branch Inspection
+python3 step1_schema_and_branches.py
+
+# Run Step 2: Kinematic Spectrum & Multiplicity Plotting
+python3 step2_kinematics_and_plots.py
+```
 
 ---
 

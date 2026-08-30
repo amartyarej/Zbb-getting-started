@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Dijet QCD background path.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Accesses background QCD sample to study tagger-induced mass sculpting artifacts.
+    # 4. Common beginner mistake: Testing mass sculpting on signal samples instead of falling background.
     setup_mplhep_style()
     metadata = load_metadata()
     qcd_path = metadata["samples"]["Dijet_JZ4"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {qcd_path} not found.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Background Jet Mass & Dual Scores
+    # ----------------------------------------------------
+    # 1. What code does: Loads jet mass, standard ParT score, and mass-decorrelated ParT score for QCD dijets.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats for mass (GeV) and classifier scores.
+    # 3. HEP meaning: Compares standard tagger vs mass-decorrelated tagger effects on background mass shape.
+    # 4. Common beginner mistake: Comparing mass shapes with different total selection efficiencies.
     branches = [
         "largeRjet_pt_NOSYS",
         "largeRjet_m_NOSYS",
@@ -30,15 +44,15 @@ def main():
         "largeRjet_ParT_W_massDec_score"
     ]
     
-    events = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=25000)
+    events = uproot.open(qcd_path)["reco"].arrays(branches, entry_stop=20000)
     
-    pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), 0.0))
-    mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), 0.0))
-    score_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_score"]), -1.0))
-    score_dec = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_massDec_score"]), -1.0))
+    pt = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_pt_NOSYS"] / 1000.0), np.nan))
+    mass = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_m_NOSYS"] / 1000.0), np.nan))
+    s_std = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_std_score"]), np.nan))
+    s_mdec = ak.to_numpy(ak.fill_none(ak.firsts(events["largeRjet_ParT_W_massDec_score"]), np.nan))
     
-    mask = (pt > 250.0) & (mass > 0.0) & (score_std >= 0.0) & (score_dec >= 0.0)
-    pt, mass, score_std, score_dec = pt[mask], mass[mask], score_std[mask], score_dec[mask]
+    valid = ~np.isnan(pt) & ~np.isnan(mass) & (pt > 250.0)
+    mass, score_std, score_dec = mass[valid], s_std[valid], s_mdec[valid]
     
     # ----------------------------------------------------
     # EXAMPLE: Standard Tagger Score Quantile Cut

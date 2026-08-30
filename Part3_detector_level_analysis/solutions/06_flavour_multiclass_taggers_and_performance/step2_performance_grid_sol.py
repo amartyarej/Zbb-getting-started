@@ -14,6 +14,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Dataset metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Reads sample paths for Zbb signal, Wqq background, and QCD dijet background.
+    # 2. Data type/shape: Python string filepaths.
+    # 3. HEP meaning: Prepares 3 distinct decay topology datasets to measure selection efficiency grid.
+    # 4. Common beginner mistake: Proceeding without checking ROOT file accessibility across all 3 samples.
     metadata = load_metadata()
     zbb_path = metadata["samples"]["Zbb"]["file_path"]
     wqq_path = metadata["samples"]["Wqq"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print("[Note]: ROOT files not available locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: D_bb Discriminant Calculation across 3 Samples
+    # ----------------------------------------------------
+    # 1. What code does: Computes composite D_bb ratio scores for Zbb, Wqq, and QCD dijet events (entry_stop=15000).
+    # 2. Data type/shape: 1D NumPy arrays of valid float D_bb values.
+    # 3. HEP meaning: Provides classifier discriminant outputs across 3 physics processes to build efficiency grid.
+    # 4. Common beginner mistake: Comparing efficiency grid metrics without applying identical kinematic cuts across samples.
     branches = [
         "largeRjet_pt_NOSYS", "largeRjet_GN3X_phbb", "largeRjet_GN3X_pWqq",
         "largeRjet_GN3X_pQCDbb", "largeRjet_GN3X_pQCDbx", "largeRjet_GN3X_pQCDcx", "largeRjet_GN3X_pQCDll"

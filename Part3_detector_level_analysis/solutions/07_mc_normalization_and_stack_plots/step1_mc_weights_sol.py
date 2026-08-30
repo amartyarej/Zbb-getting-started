@@ -14,6 +14,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from helpers import load_metadata, compute_event_weight
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Dataset metadata & target luminosity loading
+    # ----------------------------------------------------
+    # 1. What code does: Reads sample cross sections, sum of weights, and target luminosity from metadata.json.
+    # 2. Data type/shape: Python dict metadata and float target luminosity.
+    # 3. HEP meaning: Provides physics normalization constants (sigma, sum_w) to scale MC to target integrated luminosity.
+    # 4. Common beginner mistake: Using raw unweighted entry counts instead of luminosity-scaled weighted yields.
     metadata = load_metadata()
     target_lumi_fb = metadata["target_luminosity_fb"]
     zbb_info = metadata["samples"]["Zbb"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Generator Weights & Event Weight Calculation
+    # ----------------------------------------------------
+    # 1. What code does: Reads generator weight branch 'weight_mc_NOSYS' (first 20,000 events via entry_stop=20000) and computes normalized per-event weights.
+    # 2. Data type/shape: 1D NumPy array of per-event weights w_norm.
+    # 3. HEP meaning: w_norm = w_gen * (sigma * L) / sum(w_gen) converts simulation counts to expected physical events.
+    # 4. Common beginner mistake: Forgetting that generator weights can be negative (e.g. NLO MC interference).
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS", "weight_mc_NOSYS"], entry_stop=20000)
     

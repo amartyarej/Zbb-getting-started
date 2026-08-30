@@ -15,6 +15,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata, setup_mplhep_style
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Figure styling & metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Configures ATLAS plot aesthetics and reads Z->bb sample path.
+    # 2. Data type/shape: Python dict and string filepath.
+    # 3. HEP meaning: Standardizes figure formatting across kinematic spectrum studies.
+    # 4. Common beginner mistake: Proceeding without verifying dataset accessibility.
     setup_mplhep_style()
     metadata = load_metadata()
     file_path = metadata["samples"]["Zbb"]["file_path"]
@@ -23,6 +30,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Columnar TTree extraction & NaN Filtering
+    # ----------------------------------------------------
+    # 1. What code does: Reads jet pT and mass branches (first 20,000 events via entry_stop=20000), converts MeV to GeV, extracts leading jets, and filters NaNs.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats for pT and mass.
+    # 3. HEP meaning: Prepares leading reconstructed large-R jet observables for histogramming.
+    # 4. Common beginner mistake: Passing unfiltered NaN entries into matplotlib histogramming functions.
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays(["largeRjet_pt_NOSYS", "largeRjet_m_NOSYS"], entry_stop=20000)
     

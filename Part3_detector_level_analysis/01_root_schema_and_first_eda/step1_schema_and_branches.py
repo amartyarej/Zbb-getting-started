@@ -14,6 +14,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Loading dataset metadata from JSON
+    # ----------------------------------------------------
+    # 1. What code does: Loads sample metadata dictionary containing EOS file paths and cross sections.
+    # 2. Data type/shape: Python dict object.
+    # 3. HEP meaning: Provides central metadata definitions for collision samples.
+    # 4. Common beginner mistake: Hardcoding dataset file paths instead of loading from metadata JSON.
     metadata = load_metadata()
     zbb_meta = metadata["samples"]["Zbb"]
     file_path = zbb_meta["file_path"]

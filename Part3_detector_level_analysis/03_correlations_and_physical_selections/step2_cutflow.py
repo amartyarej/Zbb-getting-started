@@ -14,6 +14,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from helpers import load_metadata
 
 def main():
+    # ----------------------------------------------------
+    # Setup: Dataset metadata loading
+    # ----------------------------------------------------
+    # 1. What code does: Reads sample path for Z->bb MC from metadata JSON.
+    # 2. Data type/shape: Python string filepath.
+    # 3. HEP meaning: Accesses sample reference for baseline cutflow evaluation.
+    # 4. Common beginner mistake: Hardcoding absolute file paths.
     metadata = load_metadata()
     file_path = metadata["samples"]["Zbb"]["file_path"]
     
@@ -21,6 +28,13 @@ def main():
         print(f"[Note]: ROOT file {file_path} is not accessible locally.")
         return
         
+    # ----------------------------------------------------
+    # Data Loading: Kinematics, Substructure (Tau1, Tau2) & Ratio
+    # ----------------------------------------------------
+    # 1. What code does: Reads pT, mass, tau1, tau2 (first 20,000 events via entry_stop=20000); converts MeV to GeV; computes N-subjettiness ratio tau21 = tau2/tau1.
+    # 2. Data type/shape: 1D NumPy arrays of valid floats.
+    # 3. HEP meaning: Tau21 measures 2-prong vs 1-prong jet substructure topology.
+    # 4. Common beginner mistake: Dividing tau2 by tau1 without checking for tau1 == 0 (division by zero).
     tree = uproot.open(file_path)["reco"]
     events = tree.arrays([
         "largeRjet_pt_NOSYS", "largeRjet_m_NOSYS",
