@@ -8,6 +8,7 @@ import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 import uproot
 import awkward as ak
 
@@ -57,7 +58,7 @@ def main():
     # 3. HEP meaning: Diagnoses conditional mass dependence across score quantile slices.
     # 4. Beginner mistake: Ignoring score-mass correlation across different score ranges.
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], cmap='inferno')
+    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 0.2], [0, 250]], norm=LogNorm(), cmap='viridis')
     ax.set_xlabel("Standard ParT W-Tagger Score")
     ax.set_ylabel("QCD Jet Mass [GeV]")
     ax.set_title("2D Diagnostic: Jet Mass vs Tagger Score")
@@ -93,13 +94,13 @@ def main():
             t80_per_mass.append(np.nan)
             
     fig, ax = plt.subplots(figsize=(7, 5))
-    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], cmap='inferno')
+    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 0.2], [0, 250]], norm=LogNorm(), cmap='viridis')
     ax.plot(t50_per_mass, mass_centers, color='orange', linestyle='--', linewidth=2, label='ParT 50% WP (mean per mass bin)')
     ax.plot(t80_per_mass, mass_centers, color='cyan', linestyle='--', linewidth=2, label='ParT 80% WP (mean per mass bin)')
     ax.set_xlabel("Standard ParT W-Tagger Score")
     ax.set_ylabel("QCD Jet Mass [GeV]")
     ax.set_title("2D Diagnostic Solution with Mass-Binned WP Threshold Curves")
-    ax.legend()
+    ax.legend(facecolor='white', framealpha=0.85)
     fig.colorbar(h2d[3], ax=ax, label="QCD Events")
     
     plt.tight_layout()

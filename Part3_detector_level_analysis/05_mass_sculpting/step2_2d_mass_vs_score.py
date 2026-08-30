@@ -8,6 +8,7 @@ import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 import uproot
 import awkward as ak
 
@@ -52,7 +53,7 @@ def main():
     # EXAMPLE: Plotting 2D Mass vs Tagger Score
     # ----------------------------------------------------
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 1], [0, 250]], cmap='inferno')
+    h2d = ax.hist2d(score_std, mass, bins=[30, 30], range=[[0, 0.2], [0, 250]], norm=LogNorm(), cmap='viridis')
     ax.set_xlabel("Standard ParT W-Tagger Score")
     ax.set_ylabel("QCD Jet Mass [GeV]")
     ax.set_title("2D Diagnostic: Jet Mass vs Tagger Score")
